@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linear Algebra MCQ Trainer</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--text:#1d2433;--muted:#667085;--line:#e3e6ee;--accent:#4f46e5;--accent2:#eef0ff;--good:#16a34a;--goodbg:#e8f8ee;--bad:#dc2626;--badbg:#fdeaea;--warn:#b45309;--warnbg:#fff4e0}
+@media (prefers-color-scheme:dark){:root{--bg:#0f1220;--card:#181c30;--text:#e8eaf3;--muted:#9aa3bd;--line:#2a2f4a;--accent:#8b8cff;--accent2:#232850;--good:#4ade80;--goodbg:#12301f;--bad:#f87171;--badbg:#3a1a1c;--warn:#fbbf24;--warnbg:#3a2c10}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:8px 0 4px}h2{font-size:1.2rem;margin:0 0 10px}
+.sub{color:var(--muted);margin:0 0 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+.grid{display:grid;gap:12px;grid-template-columns:1fr 1fr}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text);padding:10px 14px}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.bigbtn{width:100%;text-align:left;padding:18px}
+.bigbtn b{display:block;font-size:1.1rem;margin-bottom:4px}
+.bigbtn span{color:var(--muted);font-size:.9rem}
+label{display:block;font-weight:600;margin:12px 0 6px}
+select,input[type=number]{font:inherit;width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row.sp{justify-content:space-between}
+.chip{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--accent2);color:var(--accent);font-size:.8rem;font-weight:600}
+.chip.gray{background:var(--line);color:var(--muted)}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;border-radius:0;background:var(--card)}
+.seg button.on{background:var(--accent);color:#fff}
+.qtext{font-size:1.1rem;margin:10px 0 14px;white-space:pre-wrap}
+.opt{display:flex;gap:10px;width:100%;text-align:left;margin-bottom:8px;padding:12px;align-items:flex-start}
+.opt .l{font-weight:700;min-width:22px;color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:var(--accent2)}
+.opt.right{border-color:var(--good);background:var(--goodbg)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.hint{background:var(--warnbg);color:var(--warn);border-radius:10px;padding:10px 12px;margin:10px 0}
+.fb{border-radius:10px;padding:10px 12px;margin:10px 0;font-weight:600}
+.fb.ok{background:var(--goodbg);color:var(--good)}.fb.no{background:var(--badbg);color:var(--bad)}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0}
+.bar i{display:block;height:100%;background:var(--accent)}
+.pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-top:10px}
+.pal button{padding:6px 0;font-size:.85rem}
+.pal button.ans{background:var(--accent2);border-color:var(--accent)}
+.pal button.cur{outline:2px solid var(--accent)}
+.pal button.hh{position:relative}.pal button.hh::after{content:"💡";position:absolute;top:-6px;right:-3px;font-size:.7rem}
+.timer{font-variant-numeric:tabular-nums;font-weight:700}
+.timer.low{color:var(--bad)}
+table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left;font-size:.92rem}
+.big{font-size:2.4rem;font-weight:800;color:var(--accent)}
+.rev{border-left:4px solid var(--line);padding-left:12px;margin:14px 0}
+.rev.ok{border-color:var(--good)}.rev.no{border-color:var(--bad)}
+.small{font-size:.85rem;color:var(--muted)}
+.note{font-size:.85rem;color:var(--muted);margin-top:6px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+// ---------- DATA ----------
+const TOPICS=["Vectors & Components","Axioms & Definitions","Subspace Theory","Subspace Test Applied","Solution Spaces & Geometry","Linear Combinations","Spanning Sets","Mixed Review"];
+const Q=[];let curT=0;
+function sec(i){curT=i}
+function q(t,o,a,h){Q.push({id:Q.length+1,topic:curT,q:t,o:o.split("§"),a:"ABCD".indexOf(a),h:h})}
+
+sec(0);
+q("The vector from P1(x1, y1) to P2(x2, y2) has components:","(x1 − x2, y1 − y2)§(x2 − x1, y2 − y1)§(x1 + x2, y1 + y2)§(x1·x2, y1·y2)","B","Terminal point minus initial point.");
+q("The components of the vector from P1(1, 5) to P2(4, 1) are:","(3, −4)§(−3, 4)§(5, 6)§(3, 4)","A","Subtract P1 from P2 coordinate by coordinate.");
+q("The vector from (0, 0, 4) to (2, 3, 0) has components:","(2, 3, 4)§(−2, −3, 4)§(2, 3, −4)§(2, −3, 4)","C","Watch the third component: 0 − 4.");
+q("The components of the vector from (−3, 3) to (2, 3) are:","(−5, 0)§(5, 6)§(0, 5)§(5, 0)","D","Terminal minus initial: 2 − (−3).");
+q("The vector from (3, 0, 4) to (0, 4, 4) has components:","(3, 4, 0)§(−3, 4, 0)§(−3, −4, 0)§(3, −4, 8)","B","Compute 0 − 3, 4 − 0 and 4 − 4.");
+q("A vector v = (1, 2) has initial point A(1, 1). Its terminal point B is:","(0, −1)§(2, 3)§(1, 3)§(2, 1)","B","B = A + v.");
+q("A vector v = (1, 1, 3) has terminal point B(−1, −1, 2). Its initial point A is:","(0, 0, 5)§(2, 2, 5)§(−2, −2, 1)§(−2, −2, −1)","D","A = B − v.");
+q("If the initial point is A and the vector is v, the terminal point B is found using:","B = v − A§B = A·v§B = A + v§B = A − v","C","Start at A and travel along v.");
+q("Let Q(3, 0, −5). Find the initial point P of the vector PQ that has the same direction as (4, −2, −1) and the same length.","(7, −2, −6)§(1, −2, 4)§(−1, −2, −6)§(−1, 2, −4)","D","PQ = Q − P = v, so P = Q − v.");
+q("Let Q(3, 0, −5). Find P so that PQ has the opposite direction to (4, −2, −1) and the same length.","(−1, 2, −4)§(7, −2, −6)§(−7, 2, 6)§(7, 2, 6)","B","Use v = (−4, 2, 1), then P = Q − v.");
+q("If u = (4, −1), v = (0, 5), w = (−3, −3), then 3v − 2(u + 2w) equals:","(4, 29)§(−4, 29)§(4, 1)§(8, 29)","A","Work inside the bracket first (u + 2w), then 3v, then combine.");
+q("For u = (4, −1) and w = (−3, −3), u + 2w equals:","(−10, −7)§(2, 7)§(−2, −7)§(−2, −5)","C","Double w first, then add u.");
+q("For u = (4, −1) and w = (−3, −3), 2u − w equals:","(5, −5)§(11, 1)§(5, 1)§(11, −5)","B","Subtracting w means adding its negative.");
+q("Let u = (1, 2, −3, 5, 0) and v = (0, 4, −1, 1, 2). Then u + v equals:","(1, 6, −4, 6, 2)§(1, −2, −2, 4, −2)§(1, 6, −2, 6, 2)§(1, 2, −4, 6, 2)","A","Add matching components.");
+q("For v = (0, 4, −1, 1, 2), the vector 5v equals:","(0, 9, 4, 6, 7)§(5, 20, −5, 5, 10)§(0, 20, −5, 5, 10)§(0, 20, 5, 5, 10)","C","Multiply every component by 5.");
+q("With w = (7, 1, −4, −2, 3) and v = (0, 4, −1, 1, 2), w − 5v equals:","(7, 21, −5, 3, 13)§(7, −19, 1, −7, −7)§(7, −19, −9, 3, −7)§(7, −19, 1, −3, −7)","B","Compute 5v first, then subtract component by component.");
+q("With u = (1, 2, −3, 5, 0), v = (0, 4, −1, 1, 2), w = (7, 1, −4, −2, 3), the vector (1/2)(w − 5v + 2u) equals:","(9, −15, −5, 3, −7)§(9/2, −15/2, 5/2, 3/2, −7/2)§(7/2, −19/2, 1/2, −7/2, −7/2)§(9/2, −15/2, −5/2, 3/2, −7/2)","D","Find w − 5v, add 2u, then halve every component.");
+q("Using the same u, v, w, the vector (1/2)(w − 5v + 2u) + v equals:","(9/2, −7/2, −7/2, 5/2, −3/2)§(9/2, −15/2, −7/2, 5/2, −3/2)§(9/2, −7/2, −3/2, 5/2, −3/2)§(9/2, −11/2, −7/2, 5/2, −3/2)","A","Take the previous answer and add v.");
+q("With u = (1, 2, −3, 5, 0) and w = (7, 1, −4, −2, 3), u − w equals:","(6, −1, −1, −7, 3)§(8, 3, −7, 3, 3)§(−6, 1, 1, 7, −3)§(−6, 1, −1, 7, −3)","C","Subtract component by component: u − w.");
+q("For v = (0, 4, −1, 1, 2), the vector −v equals:","(0, 4, −1, 1, 2)§(0, −4, −1, 1, −2)§(−4, 0, 1, −1, −2)§(0, −4, 1, −1, −2)","D","Negate every component.");
+
+sec(1);
+q("The rule u + v = v + u is called:","Associativity of addition§Commutativity of addition§Distributivity§Existence of a zero vector","B","The order of addition does not matter.");
+q("The rule u + (v + w) = (u + v) + w is called:","Commutativity of addition§Closure under addition§Associativity of addition§Additive inverse","C","The grouping does not matter.");
+q("The rule u + 0 = 0 + u = u states that:","A zero vector exists in V§Addition is commutative§Scalar multiplication is closed§Every vector has a negative","A","Adding the zero vector changes nothing.");
+q("The rule u + (−u) = 0 states that:","The zero vector is unique§Addition is associative§1·u = u§Every vector u has a negative −u in V","D","Every vector has an opposite that cancels it.");
+q("The rule k(u + v) = ku + kv is the:","Associative law for scalars§Distributive law of a scalar over vector addition§Distributive law over scalar addition§Commutative law","B","The scalar k is spread across a sum of vectors.");
+q("The rule (k + m)u = ku + mu is the:","Distributive law of a scalar over vector addition§Associative law for addition§Distributive law over scalar addition§Identity law","C","A sum of scalars splits into two terms.");
+q("The rule k(mu) = (km)u is called:","Associativity of scalar multiplication§Commutativity of scalar multiplication§Closure under scalar multiplication§Additive identity","A","Scalars can be multiplied together first or one at a time.");
+q("The rule 1·u = u is called the:","Additive identity§Additive inverse§Closure axiom§Scalar (multiplicative) identity axiom","D","Multiplying by the scalar 1 changes nothing.");
+q("Which statement correctly describes a vector space V?","A set of arrows in the plane only§Any set that is closed under addition only§Any nonempty set of numbers with multiplication defined§A nonempty set of objects (vectors) with addition and scalar multiplication defined, satisfying the vector space axioms","D","Think: a set, two operations, and a list of axioms.");
+q("Counting the two closure axioms, a vector space must satisfy how many axioms?","6§8§10§12","C","Eight rules plus two closure axioms.");
+q("Closure under scalar multiplication means:","k·u = u for all u in V§For every scalar k and every u in V, the vector ku is also in V§u + v = v + u§k·0 ≠ 0","B","Closure means the result stays inside V.");
+q("Which of the following is a vector space under the standard operations?","All vectors of the form (a, 1) in R²§Rⁿ§The set of invertible 2×2 matrices§All polynomials of degree exactly 2","B","A vector space needs a zero vector, negatives and closure.");
+q("The zero vector of M₂₂ (the space of 2×2 matrices) is:","The 2×2 zero matrix§The 2×2 identity matrix§The matrix with all entries 1§The matrix [0 1; 1 0]","A","Which matrix added to any matrix leaves it unchanged?");
+q("The zero vector of P₃ (polynomials of degree at most 3) is:","1§x³§1 + x + x² + x³§The zero polynomial 0 + 0x + 0x² + 0x³","D","Which polynomial adds to p without changing it?");
+q("The zero vector of F(−∞, ∞), the space of all real-valued functions, is:","f(x) = 1 for all x§f(x) = x§f(x) = 0 for every x§A function with f(0) = 0 only","C","Which function adds to f without changing it, at every x?");
+q("The zero vector of R⁴ is:","(0, 0, 0, 0)§(1, 1, 1, 1)§(0, 1, 0, 1)§(1, 0, 0, 0)","A","Four components, all zero.");
+q("In M₂₂, the negative of the matrix [a b; c d] is:","[1/a 1/b; 1/c 1/d]§[−a −b; −c −d]§[d c; b a]§[a b; c d]","B","Which matrix added to A gives the zero matrix?");
+q("In P₂, the negative of p = 1 + 2x − x² is:","1 − 2x + x²§−1 + 2x − x²§1 + 2x + x²§−1 − 2x + x²","D","Negate every coefficient.");
+q("In any vector space V, for every vector u, the product 0·u equals:","u§−u§The zero vector 0§The scalar 0","C","A theorem: multiplying by the scalar 0 collapses the vector.");
+q("In any vector space V, for every vector u, the product (−1)u equals:","−u§u§0§1","A","Theorem: the scalar −1 gives the negative.");
+
+sec(2);
+q("A subset W of a vector space V is called a subspace of V if:","W is any nonempty subset of V§W is itself a vector space under the operations of V§W has fewer elements than V§W contains the zero vector of V","B","A subspace is a vector space sitting inside a vector space.");
+q("The Subspace Test says a nonempty subset W of V is a subspace if and only if:","W is closed under addition and under scalar multiplication§W contains only the zero vector§W is closed under addition only§W is a finite set","A","Two closure checks.");
+q("Every subspace of a vector space V must contain:","A unit vector§At least two nonzero vectors§The zero vector of V§A basis of V","C","Take k = 0 in a subspace.");
+q("Which fact immediately shows that W = {(a, 1, 1)} is not a subspace of R³?","W contains too few vectors§W does not contain the zero vector (0, 0, 0)§W is an infinite set§The first component varies","B","Try the quickest test: does it contain (0, 0, 0)?");
+q("True or false: every subspace of a vector space is itself a vector space.","False§True, by the definition of a subspace§True only for Rⁿ§False unless the subspace is {0}","B","This is exactly the definition.");
+q("True or false: every vector space is a subspace of itself.","False, because a subspace must be smaller§False unless V = Rⁿ§True only if V is finite-dimensional§True, since V is a subset of itself and is closed under both operations","D","V is a subset of itself and satisfies both closure conditions.");
+q("True or false: every subset of V that contains the zero vector is a subspace of V.","True, because the zero vector guarantees closure§True only in Rⁿ§False; containing 0 is necessary but closure can still fail§False; a subspace need not contain 0","C","Containing 0 is necessary, but is it sufficient?");
+q("True or false: the kernel of a matrix transformation T_A : Rⁿ → Rᵐ is a subspace of Rᵐ.","True§False; it is a subspace of Rⁿ, not Rᵐ§False; it is never a subspace§True only if m = n","B","Which space do the input vectors x live in?");
+q("True or false: the solution set of a consistent linear system Ax = b with m equations in n unknowns is a subspace of Rⁿ.","False in general; it is a subspace only when b = 0§True always§False; it is a subspace of Rᵐ§True whenever m < n","A","Can x = 0 solve Ax = b?");
+q("True or false: the intersection of any two subspaces of V is a subspace of V.","False§False unless they have equal dimension§True§True only for subspaces of Rⁿ","C","Pick u, v in both and test u + v and ku.");
+q("True or false: the union of any two subspaces of V is a subspace of V.","True§False because a union never contains the zero vector§True when the subspaces intersect§False in general; the x-axis ∪ y-axis in R² fails closure under addition","D","Try the x-axis and the y-axis in R².");
+q("True or false: the set of upper triangular n × n matrices is a subspace of the space of all n × n matrices.","False§False; the sum of two triangular matrices need not be triangular§True; sums and scalar multiples of upper triangular matrices stay upper triangular§True only for n = 2","C","Add two upper triangular matrices: where do the zeros stay?");
+q("The smallest subspace of any vector space V is:","The empty set§Any line through the origin§V itself§The zero subspace {0}","D","Every subspace contains 0, so what is the minimum?");
+q("The largest subspace of a vector space V is:","V itself§{0}§Any plane§The set of unit vectors","A","A subspace of V cannot be bigger than V.");
+q("The subspaces of R² are exactly:","Only the lines through the origin and R²§{0}, the lines through the origin, and R²§{0} and R² only§Any line in the plane","B","Think geometry through the origin in the plane.");
+q("The subspaces of R³ are exactly:","{0}, the lines through the origin, the planes through the origin, and R³§Only the planes through the origin§Any plane in space§{0} and R³ only","A","Geometry through the origin in space.");
+q("If T_A is multiplication by a matrix A with three columns, the kernel of T_A is one of:","A point, a line, a plane, or a sphere§A plane or R³ only§The origin, a line through the origin, a plane through the origin, or all of R³§A line or plane not necessarily through the origin","C","The kernel is a subspace of R³.");
+q("Why do the solution vectors of a consistent nonhomogeneous system Ax = b not form a subspace of Rⁿ?","Because the system has infinitely many solutions§Because the zero vector is not a solution, since A0 = 0 ≠ b§Because addition is not defined on solutions§Because the solution set is empty","B","Plug x = 0 into Ax = b.");
+q("The solution set of a homogeneous system Ax = 0 in n unknowns is always a subspace of:","Rᵐ§Rᵐ⁺ⁿ§Mₘₙ§Rⁿ","D","x has n components.");
+q("If W is a subspace of U and U is a subspace of V, then:","W is a subspace of V§W = V§W = U§W ∩ V = {0}","A","Closure carries up the chain.");
+
+sec(3);
+q("Is W = {all vectors (a, 0, 0)} a subspace of R³?","Yes; it is closed under addition and scalar multiplication§No; it lacks the zero vector§No; it is not closed under scalar multiplication§No; it is not closed under addition","A","Add (x, 0, 0) + (y, 0, 0) and scale (a, 0, 0).");
+q("Is W = {all vectors (a, 1, 1)} a subspace of R³?","Yes; it is a line§No; (x, 1, 1) + (y, 1, 1) = (x + y, 2, 2) is not in W§Yes; it contains (1, 1, 1)§Yes; it is closed under addition","B","Add two vectors: what are the 2nd and 3rd components now?");
+q("Is W = {all vectors (a, b, c) with b = a + c} a subspace of R³?","No; it fails closure under addition§No; it fails closure under scalar multiplication§No; it lacks the zero vector§Yes; both closure conditions hold","D","Write the vectors as (a, a + c, c) and test sums and multiples.");
+q("Is W = {all vectors (a, b, c) with b = a + c + 1} a subspace of R³?","Yes§Yes; it is closed under scalar multiplication§No; (0, 0, 0) is not in W because 0 ≠ 0 + 0 + 1§No; W is empty","C","Plug in (0, 0, 0).");
+q("Is W = {all vectors (a, b, 0)} a subspace of R³?","Yes; it is the xy-plane through the origin and is closed under both operations§No; it is not closed under addition§No; it lacks the zero vector§No; it is not closed under scalar multiplication","A","It is a plane through the origin.");
+q("Is W = {all vectors (a, b, c) with a + b = 7} a subspace of R³?","Yes; it is a plane§Yes; it is closed under addition§Yes; it is closed under scalar multiplication§No; (0, 0, 0) is not in W because 0 + 0 ≠ 7","D","Does (0, 0, 0) satisfy a + b = 7?");
+q("Is the set of all diagonal n × n matrices a subspace of Mₙₙ?","No; a sum of diagonal matrices need not be diagonal§No; it is not closed under scalar multiplication§Yes§Yes, but only when n = 2","C","Sums and scalar multiples of diagonal matrices stay diagonal.");
+q("Is the set of all n × n matrices A with det(A) = 0 a subspace of Mₙₙ?","Yes; the zero matrix has det 0§No; it is not closed under scalar multiplication§Yes; it is closed under addition§No; closure under addition fails, e.g. diag(1, 0) + diag(0, 1) = I has det 1","D","Add two singular matrices: can the sum be invertible?");
+q("Is the set of all n × n matrices A with tr(A) = 0 a subspace of Mₙₙ?","No; it lacks the zero matrix§Yes; tr(A + B) = tr(A) + tr(B) = 0 and tr(kA) = k·tr(A) = 0§No; it is not closed under scalar multiplication§No; it is not closed under addition","B","The trace is linear.");
+q("Is the set of all symmetric n × n matrices a subspace of Mₙₙ?","Yes; (A + B)ᵀ = A + B and (kA)ᵀ = kA§No; the sum of symmetric matrices is not symmetric§No; the zero matrix is not symmetric§Yes, but only for n = 1","A","Use (A + B)ᵀ = Aᵀ + Bᵀ.");
+q("Is the set of all n × n matrices A with Aᵀ = −A (skew-symmetric) a subspace of Mₙₙ?","No; it lacks the zero matrix§No; it is not closed under addition§Yes; (A + B)ᵀ = −(A + B) and (kA)ᵀ = −kA§Yes, but only when n is odd","C","Use (A + B)ᵀ = Aᵀ + Bᵀ and (kA)ᵀ = kAᵀ.");
+q("Is the set of all n × n matrices A for which Ax = 0 has only the trivial solution a subspace of Mₙₙ?","Yes§Yes; the sum of two such matrices always has the same property§No; it fails only for negative scalars§No; the zero matrix is not in the set, since 0x = 0 has nontrivial solutions","D","Is the zero matrix in the set?");
+q("For a fixed n × n matrix B, is the set of all n × n matrices A with AB = BA a subspace of Mₙₙ?","No; it fails closure under addition§Yes; (A₁ + A₂)B = B(A₁ + A₂) and (kA)B = B(kA)§No; it lacks the zero matrix§Yes, but only if B = I","B","Use the distributive law of matrix multiplication.");
+q("Is the set of all invertible n × n matrices a subspace of Mₙₙ?","Yes§Yes; it is closed under addition§No; the zero matrix is not invertible, and sums of invertible matrices can be singular§Yes, but only for n = 1","C","Is the zero matrix invertible?");
+q("Is the set of all polynomials a₀ + a₁x + a₂x² + a₃x³ with a₀ = 0 a subspace of P₃?","Yes; sums and scalar multiples still have a₀ = 0§No; it is not closed under addition§No; it is not closed under scalar multiplication§No; it lacks the zero polynomial","A","If a₀ = 0 for p and q, what is a₀ for p + q and kp?");
+q("Is the set of all polynomials a₀ + a₁x + a₂x² + a₃x³ with a₀ + a₁ + a₂ + a₃ = 0 a subspace of P₃?","No; the zero polynomial is excluded§No; it fails closure under scalar multiplication§No; it fails closure under addition§Yes; coefficient sums add (0 + 0 = 0) and scale (k·0 = 0)","D","The coefficient sum equals p(1).");
+q("Is the set of all polynomials a₀ + a₁x + a₂x² + a₃x³ with rational coefficients a subspace of P₃?","Yes§No; it is not closed under scalar multiplication, e.g. √2·(1 + x)§No; the zero polynomial is excluded§No; it is not closed under addition","B","Multiply by an irrational scalar.");
+q("Is the set of all polynomials a₀ + a₁x with real a₀, a₁ a subspace of P₃?","No; it fails closure under addition§No; it lacks the zero polynomial§Yes; it is P₁, which sits inside P₃ and is closed under both operations§No; it fails closure under scalar multiplication","C","These are the polynomials of degree at most 1.");
+q("Is the set of all functions f in F(−∞, ∞) with f(0) = 0 a subspace?","No; the zero function is excluded§No; it fails closure under addition§No; it fails closure under scalar multiplication§Yes; (f + g)(0) = 0 and (kf)(0) = 0","D","Evaluate (f + g)(0) and (kf)(0).");
+q("Is the set of all functions f in F(−∞, ∞) with f(0) = 1 a subspace?","Yes§No; the zero function has value 0 at x = 0, and (f + g)(0) = 2§Yes; it is closed under scalar multiplication§Yes, but only on [0, 1]","B","Check the zero function.");
+q("Is the set of all even functions (f(−x) = f(x)) a subspace of F(−∞, ∞)?","No; it fails closure under addition§No; the zero function is not even§Yes; (f + g)(−x) = f(x) + g(x) and (kf)(−x) = kf(x)§No; it fails closure under scalar multiplication","C","Check (f + g)(−x) and (kf)(−x).");
+q("Is the set of all polynomials of degree exactly 2 a subspace of the space of polynomials?","Yes§Yes; it is closed under addition§No; x² + (−x² + 1) has degree 0, and the zero polynomial is not in the set§Yes, but only if the leading coefficient is 1","C","Add x² and −x² + 1.");
+q("Is the set of all sequences v = (v, 0, v, 0, v, 0, ...) in R∞ a subspace of R∞?","Yes; sums and scalar multiples keep the same pattern§No; it fails closure under addition§No; it lacks the zero sequence§No; it fails closure under scalar multiplication","A","Add two such sequences and scale one.");
+q("Is the set of all sequences (v, 1, v, 1, v, 1, ...) in R∞ a subspace of R∞?","Yes§No; the zero sequence is not of this form, and the sum of two such sequences has second component 2§Yes; it is closed under scalar multiplication§Yes; it is closed under addition","B","Look at the second component after adding.");
+q("Is the set of all sequences (v, 2v, 4v, 8v, 16v, ...) in R∞ a subspace of R∞?","No; it fails closure under addition§No; the zero sequence is missing§No; it fails closure under scalar multiplication§Yes; sums and scalar multiples keep the pattern","D","Every entry is a fixed multiple of v.");
+q("Is the set of all sequences in R∞ whose components are 0 from some point on a subspace of R∞?","No; the sum of two such sequences may be nonzero forever§No; the zero sequence is missing§Yes; if u is zero after N₁ and v is zero after N₂, then u + v is zero after max(N₁, N₂)§No; it fails closure under scalar multiplication","C","Take the larger of the two cutoff points.");
+q("Is the set of all matrices of the form [a 0; b 0] a subspace of M₂₂?","Yes§No; it fails closure under addition§No; it lacks the zero matrix§No; it fails closure under scalar multiplication","A","Add and scale matrices of this form.");
+q("Is the set of all matrices of the form [a 1; b 1] a subspace of M₂₂?","Yes§No; the zero matrix is not of this form, and the sum of two such matrices has 2 in the second column§Yes; it is closed under addition§Yes; it is closed under scalar multiplication","B","Add two matrices of this form and look at column 2.");
+q("Is the set of all 2 × 2 matrices A with A[1; −1] = [2; 0] a subspace of M₂₂?","Yes§Yes; it is closed under scalar multiplication§No; the zero matrix sends [1; −1] to [0; 0], not [2; 0]§No; it fails only closure under addition","C","Does the zero matrix satisfy the equation?");
+q("Is the set of all 2 × 2 matrices A with A[1; −1] = [0; 0] a subspace of M₂₂?","No; the zero matrix is excluded§No; it fails closure under addition§No; it fails closure under scalar multiplication§Yes; if A and B both send [1; −1] to 0, so do A + B and kA","D","Matrix multiplication is linear.");
+q("For M = [0 2; −2 1], is the set of all 2 × 2 matrices A with AM = MA a subspace of M₂₂?","No; it fails closure under addition§Yes; (A₁ + A₂)M = M(A₁ + A₂) and (kA)M = M(kA)§No; it lacks the zero matrix§Yes, but only for diagonal A","B","Check (A₁ + A₂)M and (kA)M.");
+q("Is the set of all vectors of the form (a, a², a³, a⁴) a subspace of R⁴?","Yes§No; (1, 1, 1, 1) + (1, 1, 1, 1) = (2, 2, 2, 2) is not of the form (2, 4, 8, 16)§Yes; it is closed under scalar multiplication§No; it does not contain the zero vector","B","Test (1, 1, 1, 1) + (1, 1, 1, 1).");
+q("Is the set of all vectors of the form (a, 0, b, 0) a subspace of R⁴?","Yes; it is closed under addition and scalar multiplication§No; it lacks the zero vector§No; it fails closure under addition§No; it fails closure under scalar multiplication","A","Add and scale vectors (a, 0, b, 0).");
+q("Let A = [0 −1 0 2; −1 1 0 1]. Is the set of all x in R⁴ with Ax = [0; 1] a subspace of R⁴?","Yes§Yes; it is closed under addition§No; the zero vector is not a solution since A0 = 0 ≠ [0; 1]§No; it is empty","C","Plug in x = 0.");
+q("For the same A, is the set of all x in R⁴ with Ax = [0; 0] a subspace of R⁴?","No; it lacks the zero vector§No; it fails closure under addition§No; it fails closure under scalar multiplication§Yes; the solution set of a homogeneous system is a subspace","D","Homogeneous systems always give subspaces.");
+q("Is the set of all polynomials of degree less than or equal to 6 a subspace of P∞?","Yes; sums and scalar multiples of such polynomials have degree at most 6§No; it fails closure under addition§No; it fails closure under scalar multiplication§No; it lacks the zero polynomial","A","The degree of a sum is at most the larger degree.");
+q("Is the set of all polynomials of degree exactly 6 a subspace of P∞?","Yes§No; x⁶ + (−x⁶) = 0 is not of degree 6, so closure under addition fails§Yes; it is closed under scalar multiplication§Yes, but only if the leading coefficient is positive","B","What is x⁶ + (−x⁶)?");
+q("Is the set of all polynomials whose coefficients sum to 0 a subspace of P∞?","No; it lacks the zero polynomial§No; it fails closure under addition§Yes; p(1) = 0 and q(1) = 0 give (p + q)(1) = 0 and (kp)(1) = 0§No; it fails closure under scalar multiplication","C","The coefficient sum is p(1).");
+q("Is the set of all polynomials of even degree a subspace of P∞?","Yes§Yes; it is closed under addition§Yes; it is closed under scalar multiplication§No; x² + (−x² + x) = x has odd degree, so closure under addition fails","D","Add x² and −x² + x.");
+q("A line L through the origin in R³ has parametric equations x = at, y = bt, z = ct. Is L a subspace of R³?","Yes; k·v₁ corresponds to the parameter kt, and v₁ + v₂ to t₁ + t₂, so both stay on L§No; the line has infinitely many points§Yes, but only if a = b = c§No; the zero vector is not on L","A","See how the parameter t changes under scaling and addition.");
+
+sec(4);
+q("The solution space of Ax = 0 for A = [−1 1 1; 3 −1 0; 2 −4 −5] is:","The origin only§A line through the origin§A plane through the origin§All of R³","B","Check the determinant, then compare the rows.");
+q("For the same A, parametric equations of the solution line are:","x = t, y = t, z = t§x = t, y = −3t, z = 2t§x = t, y = 3t, z = −2t§x = −t, y = 3t, z = 2t","C","From 3x − y = 0 get y = 3x, then use −x + y + z = 0.");
+q("The solution space of Ax = 0 for A = [1 2 3; 2 5 3; 1 0 8] (det A = −1) is:","The origin only§A line through the origin§A plane through the origin§All of R³","A","What does det ≠ 0 tell you?");
+q("The solution space of Ax = 0 for A = [1 −3 1; 2 −6 2; 3 −9 3] is:","The origin only§A line through the origin§All of R³§A plane through the origin, with equation x − 3y + z = 0","D","All three rows are multiples of one row.");
+q("The solution space of Ax = 0 for A = [1 −1 1; 2 −1 4; 3 1 11] is:","The origin only§A plane through the origin§A line through the origin with direction (−3, −2, 1)§All of R³","C","Row-reduce: two independent rows remain.");
+q("If a 3 × 3 coefficient matrix A has det(A) ≠ 0, the solution space of Ax = 0 is:","A line through the origin§A plane through the origin§All of R³§The origin only, {0}","D","An invertible matrix has only the trivial solution.");
+q("If a 3 × 3 matrix A has rank 1, the solution space of Ax = 0 is:","A plane through the origin§A line through the origin§The origin only§All of R³","A","Rank 1 means two free variables.");
+q("If a 3 × 3 matrix A has rank 2, the solution space of Ax = 0 is:","A plane through the origin§All of R³§The origin only§A line through the origin","D","Rank 2 means one free variable.");
+q("If A is the 3 × 3 zero matrix, the solution space of Ax = 0 is:","The origin only§All of R³§A line§A plane","B","Which vectors satisfy 0x = 0?");
+q("Why is the solution set of Ax = 0 always a subspace?","Because the system always has exactly one solution§Because A is always invertible§Because x = 0 is a solution, and A(u + v) = Au + Av = 0 and A(ku) = kAu = 0 for solutions u, v§Because it always contains the identity matrix","C","Apply the Subspace Test to solutions.");
+
+sec(5);
+q("A vector w in V is a linear combination of v₁, v₂, ..., vᵣ if:","w = k₁v₁ + k₂v₂ + ... + kᵣvᵣ for some scalars k₁, ..., kᵣ§w = v₁·v₂·...·vᵣ§w = v₁ + v₂ + ... + vᵣ only§w is perpendicular to every vᵢ","A","A sum of scalar multiples.");
+q("In a linear combination k₁v₁ + ... + kᵣvᵣ, the scalars k₁, ..., kᵣ are called:","Components§Eigenvalues§Coefficients§Basis vectors","C","The multipliers have a specific name in Definition 1.");
+q("Writing (9, 2, 7) = k₁(1, 2, −1) + k₂(6, 4, 2) gives the system:","k₁ + 6k₂ = 9, 2k₁ + 4k₂ = 2, −k₁ + 2k₂ = 7§k₁ + 6k₂ = 9, 2k₁ + 4k₂ = 2, k₁ + 2k₂ = 7§k₁ + 2k₂ = 9, 6k₁ + 4k₂ = 2, −k₁ + 2k₂ = 7§6k₁ + k₂ = 9, 4k₁ + 2k₂ = 2, 2k₁ − k₂ = 7","A","Match components row by row; mind the −1.");
+q("Solving that system, (k₁, k₂) equals:","(6, 1/2)§(−3, 2)§(3, −2)§(2, −3)","B","Add Row 1 to Row 3 to get k₂ first.");
+q("Verifying the answer, −3(1, 2, −1) + 2(6, 4, 2) equals:","(9, 2, −7)§(3, 2, 7)§(−9, −2, −7)§(9, 2, 7)","D","Multiply, then add component-wise.");
+q("Is w = (4, −1, 8) a linear combination of u = (1, 2, −1) and v = (6, 4, 2)?","Yes, with k₁ = −5 and k₂ = 3/2§Yes, with k₁ = 6 and k₂ = 1/2§No; the resulting system is inconsistent§Yes, with k₁ = k₂ = 0","C","Add eq. 1 and eq. 3 to find k₂, then test it in eq. 2.");
+q("Express (−9, −7, −15) as c₁(2, 1, 4) + c₂(1, −1, 3) + c₃(3, 2, 5). The coefficients are:","c₁ = −2, c₂ = 1, c₃ = −2§c₁ = 2, c₂ = −1, c₃ = 2§c₁ = −2, c₂ = 1, c₃ = 2§c₁ = 1, c₂ = −2, c₃ = −2","A","Row-reduce the 3 × 3 system, or substitute each option.");
+q("In the previous question, the equation from the first components is:","2c₁ + c₂ + 4c₃ = −9§2c₁ + c₂ + 3c₃ = −9§c₁ + c₂ + c₃ = −9§2c₁ − c₂ + 3c₃ = −9","B","Take the first component of u, v and w.");
+q("In the same problem, the equation from the second components is:","c₁ + c₂ + 2c₃ = −7§c₁ − c₂ + 3c₃ = −7§c₁ − c₂ + 2c₃ = −7§c₁ − c₂ + 2c₃ = −15","C","Take the second component of u, v and w.");
+q("In the same problem, the equation from the third components is:","4c₁ + 5c₂ + 3c₃ = −15§3c₁ + 4c₂ + 5c₃ = −15§4c₁ + 3c₂ + 5c₃ = −7§4c₁ + 3c₂ + 5c₃ = −15","D","Take the third component of u, v and w.");
+q("Express (5, 7) as a(1, 1) + b(1, −1). Then:","a = 6, b = −1§a = −1, b = 6§a = 5, b = 7§a = 1, b = 1","A","Solve a + b = 5 and a − b = 7.");
+q("Is (1, 2, 3) a linear combination of (1, 0, 0) and (0, 1, 0)?","Yes§Yes, with coefficients 1, 2, 3§No; the third component of every such combination is 0§Yes, but only with negative scalars","C","Look at the third component.");
+q("The zero vector is a linear combination of any vectors v₁, ..., vᵣ:","Never§Only if the vectors are dependent§Only if all the vectors are zero§Always, by taking every coefficient equal to 0","D","What if every coefficient is 0?");
+q("In P₂, the polynomial 2 + x as a linear combination of 1 and x is:","2·1 + 1·x§1·1 + 2·x§2·1 − x§It is not a linear combination of 1 and x","A","Compare the coefficients of 1 and x.");
+q("In M₂₂, write [1 2; 3 4] as a combination of E₁₁ = [1 0; 0 0], E₁₂ = [0 1; 0 0], E₂₁ = [0 0; 1 0], E₂₂ = [0 0; 0 1]. The coefficients (in that order) are:","4, 3, 2, 1§1, 3, 2, 4§1, 2, 3, 4§1, 2, 4, 3","C","Read the entries off in the order E₁₁, E₁₂, E₂₁, E₂₂.");
+q("Every vector (a, b, c) in R³ can be written as a linear combination of i, j, k as:","a + b + c§ai + bj + ck§ci + bj + ak§i + j + k","B","The coefficients are the components.");
+q("By Theorem 4.3.1(a), the set W of all linear combinations of the vectors in S = {w₁, ..., wᵣ} is:","Always equal to S§A subset that is never closed under addition§Always the zero space§A subspace of V","D","Recall Theorem 4.3.1(a).");
+q("By Theorem 4.3.1(b), the set W of all linear combinations of S is:","The largest subspace of V containing S§The smallest subspace of V containing S; every subspace containing S contains W§Always equal to V§Disjoint from S","B","Recall Theorem 4.3.1(b): the word 'smallest'.");
+q("In the proof of closure under addition, if u = c₁w₁ + ... + cᵣwᵣ and v = k₁w₁ + ... + kᵣwᵣ, then u + v has coefficients:","cᵢkᵢ§cᵢ + kᵢ§cᵢ − kᵢ§cᵢ/kᵢ","B","Add the coefficients of each wᵢ.");
+q("In closure under scalar multiplication, if u = c₁w₁ + ... + cᵣwᵣ, then ku has coefficients:","cᵢ + k§cᵢ/k§kcᵢ§cᵢᵏ","C","Multiply each coefficient by k.");
+q("Which augmented matrix represents w = k₁u + k₂v for u = (1, 2, −1), v = (6, 4, 2), w = (9, 2, 7)?","[1 2 −1 | 9; 6 4 2 | 2]§[1 6 | 9; 2 4 | 2; 1 2 | 7]§[1 6 | 9; 2 4 | 2; −1 2 | 7]§[9 6 | 1; 2 4 | 2; 7 2 | −1]","C","The columns are u and v; the last column is w.");
+q("Adding Row 1 to Row 3 of [1 6 | 9; 2 4 | 2; −1 2 | 7] gives the new third row:","(0, 4 | 16)§(0, 8 | 16)§(2, 8 | 16)§(0, −4 | −2)","B","Add each entry of Row 1 to the matching entry of Row 3.");
+q("If the linear system for w = k₁v₁ + ... + kᵣvᵣ is inconsistent, then:","w must be the zero vector§The vectors v₁, ..., vᵣ are linearly independent§There are infinitely many combinations§w is not a linear combination of the given vectors","D","Inconsistent means no solution for the coefficients.");
+q("A vector w is a linear combination of a single vector u if and only if:","w = ku for some scalar k§w is perpendicular to u§w = u + k§w is longer than u","A","With one vector, only multiples are possible.");
+q("A linear combination of r vectors involves how many coefficients?","r − 1§r + 1§r§r²","C","One coefficient per vector.");
+
+sec(6);
+q("For S = {w₁, ..., wᵣ}, the span of S is:","The set of all vectors orthogonal to every vector in S§The set S itself§The set of all linear combinations of vectors in S§The set of all products of vectors in S","C","Span means all possible combinations.");
+q("If W is the set of all linear combinations of S = {w₁, ..., wᵣ}, we say:","S spans W, written W = span(S)§S is orthogonal to W§S and W have no common vectors§S is independent of W","A","The terminology is 'S spans W'.");
+q("For a nonzero vector v in R³, span{v} is:","A plane through the origin§A line through the origin§The single point v§All of R³","B","All scalar multiples of one vector.");
+q("For two nonzero, non-parallel vectors u and v in R³, span{u, v} is:","A line through the origin§All of R³§The origin only§A plane through the origin","D","Two directions generate a flat surface.");
+q("The span of the set {0} is:","The empty set§{0}§Rⁿ§A line","B","The only combination of 0 is 0.");
+q("Does {i, j, k} span R³?","No§No; it spans only the xy-plane§Yes; (a, b, c) = ai + bj + ck§Yes, but only if a, b, c > 0","C","These are the standard unit vectors.");
+q("Does {(1, 0, 0), (0, 1, 0)} span R³?","No; every combination has third component 0, so it spans only the xy-plane§Yes§Yes; any two vectors span R³§Yes, by closure","A","Look at the third component of all combinations.");
+q("Does {(1, 1), (1, −1)} span R²?","No; the vectors are parallel§Yes; (a, b) = ((a + b)/2)(1, 1) + ((a − b)/2)(1, −1)§No; it spans only a line§Yes, but only for a, b > 0","B","Solve for the coefficients in terms of a and b.");
+q("Does {(1, 2), (2, 4)} span R²?","Yes§Yes, because there are two vectors§No; since (2, 4) = 2(1, 2), it spans only a line through the origin§No; it spans only {0}","C","Are the two vectors parallel?");
+q("Does {1, x, x²} span P₂?","No; there is no constant term§No; a degree is missing§Yes, but only with rational coefficients§Yes; a + bx + cx² = a·1 + b·x + c·x²","D","Match the coefficients of 1, x, x².");
+q("Does {1, x} span P₂?","Yes§No; no combination of 1 and x produces x²§Yes, if complex scalars are allowed§Yes; every polynomial is a combination of 1 and x","B","Can you build x² from 1 and x?");
+q("Is (3, 4, 5) in span{(1, 0, 0), (0, 1, 0)}?","Yes, with k₁ = 3 and k₂ = 4§Yes, with k₁ = 4 and k₂ = 5§No; every combination has third component 0§Yes, with k₁ = k₂ = 5","C","Look at the third component.");
+q("Is (2, 3, 0) in span{(1, 0, 0), (0, 1, 0)}?","No; the first component is wrong§No; the second component is wrong§No; the zero in the third component is not allowed§Yes; (2, 3, 0) = 2(1, 0, 0) + 3(0, 1, 0)","D","Try the coefficients 2 and 3.");
+q("The span of E₁₁, E₁₂, E₂₁, E₂₂ (the four matrices with a single 1) in M₂₂ is:","All of M₂₂§Only the symmetric matrices§Only the diagonal matrices§Only the invertible matrices","A","Every 2 × 2 matrix has exactly four entries.");
+q("The span of {(1, 0, 0), (0, 1, 0), (1, 1, 0)} in R³ is:","All of R³§A line§The xy-plane, since (1, 1, 0) is already a combination of the first two§The z-axis","C","Does (1, 1, 0) add anything new?");
+q("If S ⊆ T are sets of vectors in V, then:","span(S) is never contained in span(T)§span(T) ⊆ span(S) always§span(S) = span(T) always§span(S) ⊆ span(T), since every combination of S is a combination of T with zero coefficients on the extra vectors","D","Use zero coefficients on the extra vectors.");
+q("Two nonzero vectors u, v in R³ span a plane exactly when:","u = v§One is a scalar multiple of the other§They have equal length§Neither is a scalar multiple of the other","D","Parallel vectors span only a line.");
+q("Which of these sets spans R²?","{(1, 0), (2, 0)}§{(1, 0), (0, 1)}§{(0, 0), (1, 1)}§{(1, 2), (−2, −4)}","B","You need two non-parallel vectors in R².");
+q("To show that a set S spans a vector space V, you must show that:","S contains the zero vector§Every vector in V can be written as a linear combination of vectors in S§S has more vectors than V§Every vector in S has length 1","B","Every vector of V must be reachable.");
+q("If the vectors v₁, ..., vᵣ are the columns of A, then they span Rⁿ if and only if:","Ax = b is consistent for every b in Rⁿ§Ax = 0 has only the trivial solution§A is a square matrix§det(A) = 0","A","Spanning means every b is reachable.");
+
+sec(7);
+q("To apply the Subspace Test to a nonempty subset W of V, you must verify:","Closure under addition only§Closure under scalar multiplication only§Closure under both addition and scalar multiplication§That W has the same dimension as V","C","Both closure properties are needed.");
+q("Let W = {[x 0; 2x y]} in M₂₂, with A = [a 0; 2a c] and B = [b 0; 2b d]. Then A + B = [a + b 0; 2(a + b) c + d], so W is:","Not a subspace; the sum is not of the form of W§A subspace; the sum has the same form (so closure under addition holds)§Not a subspace; it has no zero matrix§A subspace only if x = y","B","Compare the sum's pattern with W's pattern.");
+q("For the same W, kA = [ka 0; 2ka kc], which is:","In W only when k = 1§In W only when k > 0§Not in W§In W, with x = ka and y = kc","D","Match the entries to the pattern [x 0; 2x y].");
+q("Is W = {[x 0; 2x + 1 y]} a subspace of M₂₂?","Yes§Yes, if y = 0§No; the zero matrix needs x = 0 and 2x + 1 = 0 at the same time, which is impossible§No; it fails only closure under scalar multiplication","C","Try to build the zero matrix.");
+q("Is the set of all matrices [a 0; 0 a] a subspace of M₂₂?","Yes§No; it has no zero matrix§No; it is not closed under addition§No; it is not closed under scalar multiplication","A","Add and scale matrices of the form [a 0; 0 a].");
+q("A symmetric matrix A satisfies:","Aᵀ = −A§Aᵀ = A§A⁻¹ = A§A² = A","B","It equals its own transpose.");
+q("A skew-symmetric matrix A satisfies:","Aᵀ = A§A⁻¹ = −A§Aᵀ = −A§A = 0 only","C","The transpose equals the negative.");
+q("The diagonal entries of a skew-symmetric matrix are:","All 1§All equal to each other§Arbitrary§All 0, since aᵢᵢ = −aᵢᵢ","D","Diagonal entries must satisfy aᵢᵢ = −aᵢᵢ.");
+q("The sum of two symmetric n × n matrices is:","Symmetric§Skew-symmetric§Not necessarily symmetric§Diagonal","A","Use (A + B)ᵀ = Aᵀ + Bᵀ.");
+q("For n × n matrices A and B, (A + B)ᵀ equals:","AᵀBᵀ§Aᵀ + Bᵀ§BA§(AB)ᵀ","B","The transpose distributes over addition.");
+q("The space R∞ consists of:","All infinite sequences of real numbers v = (v₁, v₂, ..., vₙ, ...)§All n × n real matrices§All polynomials§All finite sequences of length n","A","Infinite lists of real numbers.");
+q("The zero vector of R∞ is:","(1, 1, 1, ...)§(0)§(0, 0, 0, ...)§(1, 0, 0, ...)","C","Every entry is 0, infinitely many of them.");
+q("In R∞, the sum u + v of u = (u₁, u₂, ...) and v = (v₁, v₂, ...) is:","(u₁v₁, u₂v₂, ...)§(u₁ + v₁, u₂ + v₂, ...)§The single number u₁ + v₁§(u₁, v₁, u₂, v₂, ...)","B","Add term by term.");
+q("The intersection of the x-axis and the y-axis in R² is:","The empty set§Both axes together§{(0, 0)}, which is a subspace§All of R²","C","Only the origin lies on both axes.");
+q("Which of these is a subspace of R²?","{(x, y) : xy = 0}§{(x, y) : y = x + 1}§{(x, y) : x ≥ 0}§{(x, y) : y = x}","D","It must pass through the origin and be closed under both operations.");
+
+// ---------- STATE ----------
+const app=document.getElementById("app");
+const $=(s,r)=> (r||document).querySelector(s);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+const L="ABCD";
+let S={mode:null};
+let timerId=null;
+
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function pool(t){return t==="all"?Q:Q.filter(x=>x.topic===+t)}
+function topicOptions(sel){return `<option value="all">All topics (${Q.length} questions)</option>`+TOPICS.map((n,i)=>`<option value="${i}" ${String(sel)===String(i)?"selected":""}>${esc(n)} (${Q.filter(x=>x.topic===i).length})</option>`).join("")}
+function fmt(sec){sec=Math.max(0,sec);const m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
+function stopTimer(){if(timerId){clearInterval(timerId);timerId=null}}
+
+// ---------- HOME ----------
+function home(){
+  stopTimer();S={mode:null};
+  app.innerHTML=`
+  <h1>Linear Algebra MCQ Trainer</h1>
+  <p class="sub">${Q.length} questions across ${TOPICS.length} topics: vectors, vector spaces, subspaces, linear combinations and spanning sets.</p>
+  <div class="grid">
+    <button class="card bigbtn" id="bp"><b>📘 Practice</b><span>Instant feedback, unlimited hints, topic shown on every question.</span></button>
+    <button class="card bigbtn" id="bt"><b>📝 Test</b><span>Timed or untimed. Only 5% of questions get a hint.</span></button>
+  </div>
+  <div class="card"><h2>Topics</h2>
+    <table>${TOPICS.map((n,i)=>`<tr><td>${esc(n)}</td><td class="small">${Q.filter(x=>x.topic===i).length} questions</td></tr>`).join("")}</table>
+  </div>`;
+  $("#bp").onclick=practiceSetup;$("#bt").onclick=testSetup;
+}
+
+// ---------- PRACTICE ----------
+function practiceSetup(){
+  app.innerHTML=`
+  <h1>Practice setup</h1>
+  <div class="card">
+    <label>Topic</label><select id="pt">${topicOptions("all")}</select>
+    <label>Order</label>
+    <div class="seg" id="po"><button data-v="seq" class="on">In order</button><button data-v="shuf">Shuffled</button></div>
+    <div class="row" style="margin-top:16px"><button id="back">← Back</button><button class="primary" id="go">Start practice</button></div>
+  </div>`;
+  let order="seq";
+  document.querySelectorAll("#po button").forEach(b=>b.onclick=()=>{order=b.dataset.v;document.querySelectorAll("#po button").forEach(x=>x.classList.toggle("on",x===b))});
+  $("#back").onclick=home;
+  $("#go").onclick=()=>{let list=pool($("#pt").value);if(order==="shuf")list=shuffle(list);
+    S={mode:"practice",list,i:0,ans:{},hint:{},topic:$("#pt").value};renderPractice()};
+}
+function renderPractice(){
+  const {list,i,ans,hint}=S,Qn=list[i],a=ans[i];
+  const done=Object.keys(ans).length,right=Object.keys(ans).filter(k=>ans[k]===list[k].a).length;
+  app.innerHTML=`
+  <div class="row sp"><button id="exit">← Exit</button><span class="small">Correct ${right}/${done} answered</span></div>
+  <div class="bar"><i style="width:${(done/list.length)*100}%"></i></div>
+  <div class="card">
+    <div class="row sp"><span class="chip">${esc(TOPICS[Qn.topic])}</span><span class="small">Question ${i+1} of ${list.length} (Q#${Qn.id})</span></div>
+    <div class="qtext">${esc(Qn.q)}</div>
+    ${Qn.o.map((t,k)=>{let c="opt";if(a!==undefined){if(k===Qn.a)c+=" right";else if(k===a)c+=" wrong"}return `<button class="${c}" data-k="${k}" ${a!==undefined?"disabled":""}><span class="l">${L[k]}</span><span>${esc(t)}</span></button>`}).join("")}
+    ${hint[i]?`<div class="hint">💡 ${esc(Qn.h)}</div>`:""}
+    ${a!==undefined?`<div class="fb ${a===Qn.a?"ok":"no"}">${a===Qn.a?"Correct!":"Not quite. The correct answer is "+L[Qn.a]+"."}</div>`:""}
+    <div class="row sp" style="margin-top:10px">
+      <button id="hb" ${hint[i]?"disabled":""}>💡 Show hint</button>
+      <div class="row"><button id="pv" ${i===0?"disabled":""}>← Prev</button><button class="primary" id="nx">${i===list.length-1?"Finish":"Next →"}</button></div>
+    </div>
+  </div>`;
+  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{S.ans[i]=+b.dataset.k;renderPractice()});
+  $("#hb").onclick=()=>{S.hint[i]=true;renderPractice()};
+  $("#pv").onclick=()=>{S.i--;renderPractice()};
+  $("#nx").onclick=()=>{if(i===list.length-1)practiceDone();else{S.i++;renderPractice()}};
+  $("#exit").onclick=home;
+}
+function practiceDone(){
+  const {list,ans}=S;const done=Object.keys(ans).length;const right=Object.keys(ans).filter(k=>ans[k]===list[k].a).length;
+  app.innerHTML=`<div class="card" style="text-align:center"><h2>Practice complete</h2>
+  <div class="big">${right} / ${done}</div><p class="sub">answered correctly (${list.length-done} skipped)</p>
+  <div class="row" style="justify-content:center"><button id="again" class="primary">Practice again</button><button id="hm">Home</button></div></div>`;
+  $("#again").onclick=practiceSetup;$("#hm").onclick=home;
+}
+
+// ---------- TEST ----------
+function testSetup(){
+  app.innerHTML=`
+  <h1>Test setup</h1>
+  <div class="card">
+    <label>Scope</label>
+    <div class="seg" id="sc"><button data-v="all" class="on">Overall (all topics)</button><button data-v="one">Specific topic</button></div>
+    <div id="tpw" style="display:none"><label>Topic</label><select id="tp">${topicOptions(0).replace(/<option value="all">.*?<\/option>/,"")}</select></div>
+    <label>Number of MCQs <span class="small" id="mx"></span></label>
+    <input type="number" id="nq" min="1" value="20">
+    <div class="row" style="margin-top:8px" id="qk"></div>
+    <label>Test mode</label>
+    <div class="seg" id="md"><button data-v="timed" class="on">⏱ Timed</button><button data-v="untimed">Untimed</button></div>
+    <div id="tmw"><label>Time limit (minutes)</label><input type="number" id="tm" min="1" value="20"><div class="note">Default is 1 minute per question. Adjust if you like.</div></div>
+    <div class="hint" id="hn"></div>
+    <div class="row" style="margin-top:16px"><button id="back">← Back</button><button class="primary" id="go">Start test</button></div>
+  </div>`;
+  let scope="all",mode="timed",timeTouched=false;
+  const maxN=()=>pool(scope==="all"?"all":$("#tp").value).length;
+  function upd(){
+    const m=maxN();$("#mx").textContent="(max "+m+")";
+    let n=Math.min(Math.max(1,parseInt($("#nq").value)||1),m);
+    const hc=Math.floor(n*0.05);
+    $("#hn").innerHTML=hc>0?`💡 ${hc} of your ${n} questions (5%) will have a hint available, chosen at random.`:`💡 With ${n} questions, 5% rounds down to 0, so no hints will be available. Choose 20 or more questions to get 1 hint.`;
+    $("#qk").innerHTML=[10,20,40,m].filter((v,i,a)=>v<=m&&a.indexOf(v)===i).map(v=>`<button data-n="${v}">${v===m?"All ("+m+")":v}</button>`).join("");
+    document.querySelectorAll("#qk button").forEach(b=>b.onclick=()=>{$("#nq").value=b.dataset.n;timeTouched=false;upd()});
+    if(!timeTouched)$("#tm").value=n;
+  }
+  document.querySelectorAll("#sc button").forEach(b=>b.onclick=()=>{scope=b.dataset.v;document.querySelectorAll("#sc button").forEach(x=>x.classList.toggle("on",x===b));$("#tpw").style.display=scope==="one"?"block":"none";upd()});
+  document.querySelectorAll("#md button").forEach(b=>b.onclick=()=>{mode=b.dataset.v;document.querySelectorAll("#md button").forEach(x=>x.classList.toggle("on",x===b));$("#tmw").style.display=mode==="timed"?"block":"none"});
+  $("#tp").onchange=()=>{timeTouched=false;upd()};
+  $("#nq").oninput=()=>{timeTouched=false;upd()};
+  $("#tm").oninput=()=>{timeTouched=true};
+  $("#back").onclick=home;
+  $("#go").onclick=()=>{
+    const m=maxN();const n=Math.min(Math.max(1,parseInt($("#nq").value)||1),m);
+    const tpc=scope==="all"?"all":$("#tp").value;
+    const list=shuffle(pool(tpc)).slice(0,n);
+    const hc=Math.floor(n*0.05);
+    const hintSet=new Set(shuffle(list.map((_,i)=>i)).slice(0,hc));
+    const mins=Math.max(1,parseInt($("#tm").value)||n);
+    S={mode:"test",list,i:0,ans:{},hintSet,hintUsed:{},timed:mode==="timed",limit:mins*60,left:mins*60,start:Date.now(),cfg:{scope,topic:tpc,n,mode,mins}};
+    renderTest();
+    if(S.timed){timerId=setInterval(()=>{const used=Math.floor((Date.now()-S.start)/1000);S.left=S.limit-used;const t=$("#tm2");if(t){t.textContent=fmt(S.left);t.classList.toggle("low",S.left<=60)}if(S.left<=0)finishTest(true)},500)}
+  };
+  upd();
+}
+function renderTest(){
+  const {list,i,ans,hintSet,hintUsed}=S,Qn=list[i],a=ans[i];
+  const answered=Object.keys(ans).length;
+  const hasHint=hintSet.has(i);
+  app.innerHTML=`
+  <div class="row sp"><span class="small">Answered ${answered}/${list.length}</span>${S.timed?`<span class="timer ${S.left<=60?"low":""}" id="tm2">${fmt(S.left)}</span>`:`<span class="small">Untimed</span>`}</div>
+  <div class="bar"><i style="width:${(answered/list.length)*100}%"></i></div>
+  <div class="card">
+    <div class="row sp"><span class="chip">${esc(TOPICS[Qn.topic])}</span><span class="small">Question ${i+1} of ${list.length}</span></div>
+    <div class="qtext">${esc(Qn.q)}</div>
+    ${Qn.o.map((t,k)=>`<button class="opt ${a===k?"sel":""}" data-k="${k}"><span class="l">${L[k]}</span><span>${esc(t)}</span></button>`).join("")}
+    ${hintUsed[i]?`<div class="hint">💡 ${esc(Qn.h)}</div>`:""}
+    <div class="row sp" style="margin-top:10px">
+      ${hasHint?`<button id="hb" ${hintUsed[i]?"disabled":""}>💡 Use hint</button>`:`<span class="small">No hint for this question</span>`}
+      <div class="row"><button id="pv" ${i===0?"disabled":""}>← Prev</button><button id="nx" ${i===list.length-1?"disabled":""}>Next →</button></div>
+    </div>
+    ${a!==undefined?`<div class="row" style="margin-top:8px"><button id="clr" class="small">Clear answer</button></div>`:""}
+  </div>
+  <div class="card"><div class="row sp"><b>Questions</b><span class="small">💡 = hint available</span></div>
+    <div class="pal">${list.map((_,k)=>`<button data-j="${k}" class="${ans[k]!==undefined?"ans":""} ${k===i?"cur":""} ${hintSet.has(k)?"hh":""}">${k+1}</button>`).join("")}</div>
+  </div>
+  <div class="row" style="justify-content:space-between"><button id="quit">Quit test</button><button class="primary" id="sub">Submit test</button></div>`;
+  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{S.ans[i]=+b.dataset.k;renderTest()});
+  if(hasHint)$("#hb").onclick=()=>{S.hintUsed[i]=true;renderTest()};
+  $("#pv").onclick=()=>{S.i--;renderTest()};
+  $("#nx").onclick=()=>{S.i++;renderTest()};
+  if($("#clr"))$("#clr").onclick=()=>{delete S.ans[i];renderTest()};
+  document.querySelectorAll(".pal button").forEach(b=>b.onclick=()=>{S.i=+b.dataset.j;renderTest()});
+  $("#quit").onclick=()=>{if(confirm("Quit the test? Your progress will be lost.")){stopTimer();home()}};
+  $("#sub").onclick=()=>{const un=S.list.length-Object.keys(S.ans).length;if(confirm(un?`You have ${un} unanswered question(s). Submit anyway?`:"Submit your test?"))finishTest(false)};
+}
+function finishTest(auto){
+  stopTimer();
+  const {list,ans,cfg}=S;
+  const elapsed=Math.min(Math.floor((Date.now()-S.start)/1000),S.timed?S.limit:1e9);
+  let right=0;const byT={};
+  list.forEach((x,i)=>{const ok=ans[i]===x.a;if(ok)right++;byT[x.topic]=byT[x.topic]||{r:0,n:0};byT[x.topic].n++;if(ok)byT[x.topic].r++});
+  const pct=Math.round(right/list.length*100);
+  const hu=Object.keys(S.hintUsed).length;
+  S.result={right,pct};
+  app.innerHTML=`
+  <div class="card" style="text-align:center"><h2>${auto?"Time's up! ":""}Test results</h2>
+    <div class="big">${right} / ${list.length}</div><p class="sub">${pct}% · time ${fmt(elapsed)} · hints used ${hu} of ${S.hintSet.size}</p>
+    <div class="row" style="justify-content:center"><button class="primary" id="rt">Retake (same settings)</button><button id="nt">New test</button><button id="hm">Home</button></div>
+  </div>
+  <div class="card"><h2>By topic</h2><table><tr><th>Topic</th><th>Score</th></tr>
+  ${Object.keys(byT).map(t=>`<tr><td>${esc(TOPICS[t])}</td><td>${byT[t].r}/${byT[t].n} (${Math.round(byT[t].r/byT[t].n*100)}%)</td></tr>`).join("")}</table></div>
+  <div class="card"><div class="row sp"><h2 style="margin:0">Review</h2><div class="seg" id="rf" style="max-width:220px"><button data-v="all" class="on">All</button><button data-v="wrong">Wrong/skipped</button></div></div><div id="rv"></div></div>`;
+  function rev(f){
+    $("#rv").innerHTML=list.map((x,i)=>{const a=ans[i],ok=a===x.a;if(f==="wrong"&&ok)return"";
+      return `<div class="rev ${ok?"ok":"no"}"><div class="small">Q${i+1} · ${esc(TOPICS[x.topic])} · Q#${x.id}</div>
+      <div style="margin:4px 0">${esc(x.q)}</div>
+      <div>Your answer: <b>${a===undefined?"skipped":L[a]+". "+esc(x.o[a])}</b></div>
+      ${ok?"":`<div>Correct answer: <b>${L[x.a]}. ${esc(x.o[x.a])}</b></div>`}
+      <div class="small">💡 ${esc(x.h)}</div></div>`}).join("")||"<p class='sub'>Nothing to show.</p>";
+  }
+  rev("all");
+  document.querySelectorAll("#rf button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#rf button").forEach(x=>x.classList.toggle("on",x===b));rev(b.dataset.v)});
+  $("#hm").onclick=home;$("#nt").onclick=testSetup;
+  $("#rt").onclick=()=>{
+    const n=cfg.n,list2=shuffle(pool(cfg.topic)).slice(0,n),hc=Math.floor(n*0.05);
+    const hs=new Set(shuffle(list2.map((_,i)=>i)).slice(0,hc));
+    S={mode:"test",list:list2,i:0,ans:{},hintSet:hs,hintUsed:{},timed:cfg.mode==="timed",limit:cfg.mins*60,left:cfg.mins*60,start:Date.now(),cfg};
+    renderTest();
+    if(S.timed){timerId=setInterval(()=>{const used=Math.floor((Date.now()-S.start)/1000);S.left=S.limit-used;const t=$("#tm2");if(t){t.textContent=fmt(S.left);t.classList.toggle("low",S.left<=60)}if(S.left<=0)finishTest(true)},500)}
+  };
+}
+home();
+</script>
+</body>
+</html>
