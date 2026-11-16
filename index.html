@@ -3,64 +3,147 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Linear Algebra MCQ Trainer</title>
+<meta name="author" content="Muhammad Qasim Ashfaq">
+<title>Linear Algebra Trainer · Muhammad Qasim Ashfaq</title>
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--text:#1d2433;--muted:#667085;--line:#e3e6ee;--accent:#4f46e5;--accent2:#eef0ff;--good:#16a34a;--goodbg:#e8f8ee;--bad:#dc2626;--badbg:#fdeaea;--warn:#b45309;--warnbg:#fff4e0}
-@media (prefers-color-scheme:dark){:root{--bg:#0f1220;--card:#181c30;--text:#e8eaf3;--muted:#9aa3bd;--line:#2a2f4a;--accent:#8b8cff;--accent2:#232850;--good:#4ade80;--goodbg:#12301f;--bad:#f87171;--badbg:#3a1a1c;--warn:#fbbf24;--warnbg:#3a2c10}}
+:root{
+  --bg:#f3f0e8;--paper:#fffdf8;--ink:#1d2530;--muted:#5f6a7a;--line:#dcd5c6;
+  --accent:#17607f;--accent-ink:#fff;--soft:#e3eef3;--mark:#b4440c;--grid:rgba(23,96,127,.07);
+  --good:#17803d;--goodbg:#e5f4ea;--bad:#b42318;--badbg:#fbe9e7;--hint:#7a4f00;--hintbg:#fff3d6;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#12161c;--paper:#1a2028;--ink:#e6e9ee;--muted:#98a2b3;--line:#2b3340;
+  --accent:#6cb6d4;--accent-ink:#0d1a21;--soft:#1d2e38;--mark:#f59e6b;--grid:rgba(108,182,212,.06);
+  --good:#4ade80;--goodbg:#12301f;--bad:#f87171;--badbg:#3a1a1c;--hint:#f5c26b;--hintbg:#33280f;
+}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-.wrap{max-width:760px;margin:0 auto;padding:16px}
-h1{font-size:1.5rem;margin:8px 0 4px}h2{font-size:1.2rem;margin:0 0 10px}
-.sub{color:var(--muted);margin:0 0 16px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
-.grid{display:grid;gap:12px;grid-template-columns:1fr 1fr}
-@media(max-width:560px){.grid{grid-template-columns:1fr}}
-button{font:inherit;cursor:pointer;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text);padding:10px 14px}
-button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
-button:disabled{opacity:.5;cursor:not-allowed}
-.bigbtn{width:100%;text-align:left;padding:18px}
-.bigbtn b{display:block;font-size:1.1rem;margin-bottom:4px}
-.bigbtn span{color:var(--muted);font-size:.9rem}
-label{display:block;font-weight:600;margin:12px 0 6px}
-select,input[type=number]{font:inherit;width:100%;padding:10px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--text)}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background-color:var(--bg);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+h1,h2,h3{font-family:var(--serif);line-height:1.25;margin:0}
+h1{font-size:2rem}h2{font-size:1.45rem;margin-bottom:6px}h3{font-size:1.1rem;margin:22px 0 6px;color:var(--accent)}
+p{margin:8px 0}
+a{color:var(--accent)}
+.top{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:1px solid var(--line)}
+.top .in{max-width:1040px;margin:0 auto;padding:10px 16px;display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;cursor:pointer;font-family:var(--serif);font-weight:700;font-size:1.05rem;text-decoration:none;color:var(--ink);background:none;border:0;padding:0}
+.logo{display:inline-grid;place-items:center;width:34px;height:34px;border:2px solid var(--accent);border-radius:6px;color:var(--accent);font-size:.8rem;font-style:italic}
+.nav{display:flex;gap:4px;flex-wrap:wrap}
+.nav button{border:0;background:none;color:var(--muted);padding:7px 12px;border-radius:6px;font:inherit;font-weight:600;cursor:pointer}
+.nav button:hover{background:var(--soft);color:var(--ink)}
+.nav button.on{background:var(--soft);color:var(--accent)}
+.wrap{width:100%;max-width:1040px;margin:0 auto;padding:22px 16px 40px;flex:1}
+.narrow{max-width:760px;margin:0 auto}
+footer{border-top:1px solid var(--line);background:var(--paper);color:var(--muted);text-align:center;padding:14px 16px;font-size:.9rem}
+footer b{color:var(--ink)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:16px}
+.sub{color:var(--muted);margin:0 0 14px}
+.small{font-size:.86rem;color:var(--muted)}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .row.sp{justify-content:space-between}
-.chip{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--accent2);color:var(--accent);font-size:.8rem;font-weight:600}
-.chip.gray{background:var(--line);color:var(--muted)}
-.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
-.seg button{flex:1;border:0;border-radius:0;background:var(--card)}
-.seg button.on{background:var(--accent);color:#fff}
-.qtext{font-size:1.1rem;margin:10px 0 14px;white-space:pre-wrap}
-.opt{display:flex;gap:10px;width:100%;text-align:left;margin-bottom:8px;padding:12px;align-items:flex-start}
-.opt .l{font-weight:700;min-width:22px;color:var(--accent)}
-.opt.sel{border-color:var(--accent);background:var(--accent2)}
-.opt.right{border-color:var(--good);background:var(--goodbg)}
-.opt.wrong{border-color:var(--bad);background:var(--badbg)}
-.hint{background:var(--warnbg);color:var(--warn);border-radius:10px;padding:10px 12px;margin:10px 0}
-.fb{border-radius:10px;padding:10px 12px;margin:10px 0;font-weight:600}
-.fb.ok{background:var(--goodbg);color:var(--good)}.fb.no{background:var(--badbg);color:var(--bad)}
-.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:8px 0}
+button{font:inherit;cursor:pointer;color:var(--ink)}
+.btn{border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:9px 14px}
+.btn:hover:not(:disabled){border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.btn.sm{padding:5px 10px;font-size:.88rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.hero{padding:10px 0 20px}
+.hero p{max-width:620px;color:var(--muted);font-size:1.05rem}
+.by{font-size:.92rem;color:var(--muted);margin-top:4px}
+.by b{color:var(--ink)}
+.paths{display:grid;gap:14px;grid-template-columns:repeat(3,1fr);margin-bottom:18px}
+@media(max-width:700px){.paths{grid-template-columns:1fr}}
+.path{display:block;text-align:left;width:100%;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:16px 18px;border-top:4px solid var(--accent)}
+.path:hover{border-color:var(--accent)}
+.path b{display:block;font-family:var(--serif);font-size:1.15rem;margin-bottom:4px}
+.path span{color:var(--muted);font-size:.93rem}
+.tlist{width:100%;border-collapse:collapse}
+.tlist td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tlist tr:last-child td{border-bottom:0}
+.num{width:30px;color:var(--muted);font-variant-numeric:tabular-nums}
+.acc{font-size:.82rem;color:var(--muted);white-space:nowrap}
+.tlist .go{text-align:right;white-space:nowrap}
+.new{font-size:.7rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--mark);margin-left:6px}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;background:var(--soft);color:var(--accent);font-size:.8rem;font-weight:600}
+label{display:block;font-weight:600;margin:14px 0 6px}
+select,input[type=number]{font:inherit;width:100%;padding:9px 10px;border-radius:8px;border:1px solid var(--line);background:var(--paper);color:var(--ink)}
+.seg{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{flex:1;border:0;background:var(--paper);padding:9px 10px}
+.seg button.on{background:var(--accent);color:var(--accent-ink);font-weight:600}
+.note{font-size:.86rem;color:var(--muted);margin-top:6px}
+.bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:10px 0 14px}
 .bar i{display:block;height:100%;background:var(--accent)}
+.qtext{font-size:1.12rem;margin:12px 0 16px;white-space:pre-wrap;line-height:1.55}
+.opt{display:flex;gap:12px;width:100%;text-align:left;margin-bottom:8px;padding:11px 12px;align-items:center;border:1px solid var(--line);border-radius:8px;background:var(--paper)}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt .l{font-weight:700;width:24px;height:24px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;flex:none;font-size:.82rem;color:var(--muted)}
+.opt.sel{border-color:var(--accent);background:var(--soft)}
+.opt.sel .l{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--goodbg)}
+.opt.right .l{background:var(--good);color:#fff;border-color:var(--good)}
+.opt.wrong{border-color:var(--bad);background:var(--badbg)}
+.opt.wrong .l{background:var(--bad);color:#fff;border-color:var(--bad)}
+.opt:disabled{cursor:default;color:var(--ink)}
+.hint{background:var(--hintbg);color:var(--hint);border-radius:8px;padding:9px 12px;margin:10px 0}
+.fb{border-radius:8px;padding:9px 12px;margin:10px 0;font-weight:600}
+.fb.ok{background:var(--goodbg);color:var(--good)}.fb.no{background:var(--badbg);color:var(--bad)}
 .pal{display:grid;grid-template-columns:repeat(auto-fill,minmax(38px,1fr));gap:6px;margin-top:10px}
-.pal button{padding:6px 0;font-size:.85rem}
-.pal button.ans{background:var(--accent2);border-color:var(--accent)}
+.pal button{padding:6px 0;font-size:.85rem;border:1px solid var(--line);background:var(--paper);border-radius:6px;position:relative}
+.pal button.ans{background:var(--soft);border-color:var(--accent)}
 .pal button.cur{outline:2px solid var(--accent)}
-.pal button.hh{position:relative}.pal button.hh::after{content:"💡";position:absolute;top:-6px;right:-3px;font-size:.7rem}
+.pal button.hh::after{content:"";position:absolute;top:2px;right:2px;width:6px;height:6px;border-radius:50%;background:var(--mark)}
 .timer{font-variant-numeric:tabular-nums;font-weight:700}
 .timer.low{color:var(--bad)}
-table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left;font-size:.92rem}
-.big{font-size:2.4rem;font-weight:800;color:var(--accent)}
-.rev{border-left:4px solid var(--line);padding-left:12px;margin:14px 0}
+.tbl{width:100%;border-collapse:collapse;margin:8px 0}
+.tbl td,.tbl th{padding:7px 8px;border-bottom:1px solid var(--line);text-align:left;font-size:.94rem;vertical-align:top}
+.tbl th{color:var(--muted);font-weight:600}
+.big{font-family:var(--serif);font-size:2.6rem;font-weight:700;color:var(--accent);line-height:1.1}
+.rev{border-left:4px solid var(--line);padding-left:12px;margin:16px 0}
 .rev.ok{border-color:var(--good)}.rev.no{border-color:var(--bad)}
-.small{font-size:.85rem;color:var(--muted)}
-.note{font-size:.85rem;color:var(--muted);margin-top:6px}
+/* matrices */
+.mx{display:inline-grid;grid-template-columns:repeat(var(--c),auto);gap:1px 12px;vertical-align:middle;margin:2px 5px;padding:3px 9px;border-left:2px solid currentColor;border-right:2px solid currentColor;border-radius:5px;line-height:1.35;text-align:center}
+.mx i{font-style:normal;font-variant-numeric:tabular-nums}
+.mx i.a{border-left:1px dashed currentColor;padding-left:10px;margin-left:-6px}
+/* learn */
+.learn{display:grid;grid-template-columns:230px 1fr;gap:22px;align-items:start}
+@media(max-width:800px){.learn{grid-template-columns:1fr}.side{display:none}.mobsel{display:block!important}}
+.mobsel{display:none;margin-bottom:12px}
+.side{position:sticky;top:70px;max-height:calc(100vh - 90px);overflow:auto;padding-right:4px}
+.side button{display:flex;gap:8px;width:100%;text-align:left;border:0;background:none;padding:7px 10px;border-radius:6px;color:var(--muted);font-size:.93rem}
+.side button:hover{background:var(--soft);color:var(--ink)}
+.side button.on{background:var(--soft);color:var(--accent);font-weight:600}
+.side .n{width:20px;flex:none;font-variant-numeric:tabular-nums}
+.side .dot{margin-left:auto;color:var(--good)}
+.lesson{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:22px 24px}
+.lesson .lead{font-family:var(--serif);font-size:1.12rem;color:var(--muted);margin:6px 0 4px}
+.lesson ul,.lesson ol{padding-left:22px;margin:8px 0}
+.lesson li{margin:4px 0}
+.eq{font-family:var(--serif);font-size:1.1rem;background:var(--soft);padding:9px 14px;border-radius:6px;margin:10px 0;overflow-x:auto}
+.ex{border-left:3px solid var(--accent);padding:2px 0 2px 14px;margin:14px 0}
+.ex b,.trap b{display:block;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin-bottom:2px}
+.trap{border-left:3px solid var(--mark);padding:2px 0 2px 14px;margin:14px 0}
+.trap b{color:var(--mark)}
+details.check{border:1px dashed var(--line);border-radius:8px;padding:8px 12px;margin:14px 0}
+details.check summary{cursor:pointer;font-weight:600;color:var(--accent)}
+.lnav{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
-<div class="wrap" id="app"></div>
+<header class="top"><div class="in">
+  <button class="brand" id="brand" aria-label="Home"><span class="logo">Aₘₙ</span><span>Linear Algebra Trainer</span></button>
+  <nav class="nav" id="nav">
+    <button data-r="home">Home</button><button data-r="learn">Learn</button><button data-r="practice">Practice</button><button data-r="test">Test</button>
+  </nav>
+</div></header>
+<main class="wrap" id="app"></main>
+<footer>Created by <b>Muhammad Qasim Ashfaq</b></footer>
 <script>
 // ---------- DATA ----------
-const TOPICS=["Vectors & Components","Axioms & Definitions","Subspace Theory","Subspace Test Applied","Solution Spaces & Geometry","Linear Combinations","Spanning Sets","Mixed Review"];
+const TOPICS=["Vectors & Components","Axioms & Definitions","Subspace Theory","Subspace Test Applied","Solution Spaces & Geometry","Linear Combinations","Spanning Sets","Linear Independence (R² & R³)","Matrix Basics & Arithmetic","Determinants & Cofactors","Adjoint & Inverse","Row Operations, Gauss & Gauss-Jordan","Hill Cipher: c = Kp","Span Practice in R² & R³","Mixed Review"];
+const NEWFROM=7,NEWTO=13;
 const Q=[];let curT=0;
 function sec(i){curT=i}
 function q(t,o,a,h){Q.push({id:Q.length+1,topic:curT,q:t,o:o.split("§"),a:"ABCD".indexOf(a),h:h})}
@@ -234,7 +317,7 @@ q("Which of these sets spans R²?","{(1, 0), (2, 0)}§{(1, 0), (0, 1)}§{(0, 0),
 q("To show that a set S spans a vector space V, you must show that:","S contains the zero vector§Every vector in V can be written as a linear combination of vectors in S§S has more vectors than V§Every vector in S has length 1","B","Every vector of V must be reachable.");
 q("If the vectors v₁, ..., vᵣ are the columns of A, then they span Rⁿ if and only if:","Ax = b is consistent for every b in Rⁿ§Ax = 0 has only the trivial solution§A is a square matrix§det(A) = 0","A","Spanning means every b is reachable.");
 
-sec(7);
+sec(14);
 q("To apply the Subspace Test to a nonempty subset W of V, you must verify:","Closure under addition only§Closure under scalar multiplication only§Closure under both addition and scalar multiplication§That W has the same dimension as V","C","Both closure properties are needed.");
 q("Let W = {[x 0; 2x y]} in M₂₂, with A = [a 0; 2a c] and B = [b 0; 2b d]. Then A + B = [a + b 0; 2(a + b) c + d], so W is:","Not a subspace; the sum is not of the form of W§A subspace; the sum has the same form (so closure under addition holds)§Not a subspace; it has no zero matrix§A subspace only if x = y","B","Compare the sum's pattern with W's pattern.");
 q("For the same W, kA = [ka 0; 2ka kc], which is:","In W only when k = 1§In W only when k > 0§Not in W§In W, with x = ka and y = kc","D","Match the entries to the pattern [x 0; 2x y].");
@@ -251,197 +334,795 @@ q("In R∞, the sum u + v of u = (u₁, u₂, ...) and v = (v₁, v₂, ...) is:
 q("The intersection of the x-axis and the y-axis in R² is:","The empty set§Both axes together§{(0, 0)}, which is a subspace§All of R²","C","Only the origin lies on both axes.");
 q("Which of these is a subspace of R²?","{(x, y) : xy = 0}§{(x, y) : y = x + 1}§{(x, y) : x ≥ 0}§{(x, y) : y = x}","D","It must pass through the origin and be closed under both operations.");
 
-// ---------- STATE ----------
+
+// ---------- NEW QUESTIONS ----------
+sec(7);
+q("Vectors v₁, v₂, ..., vᵣ are linearly independent when:","c₁v₁ + c₂v₂ + ... + cᵣvᵣ = 0 has only the trivial solution c₁ = c₂ = ... = cᵣ = 0§c₁v₁ + ... + cᵣvᵣ = 0 has a solution with at least one cᵢ ≠ 0§the vectors are mutually perpendicular§none of the vectors is the zero vector","A","Ask which combination of the vectors can produce 0.");
+q("Vectors v₁, ..., vᵣ are linearly dependent when:","the vectors span the whole space§c₁v₁ + ... + cᵣvᵣ = 0 has a nontrivial solution, so some vector is a combination of the others§the vectors all have the same length§c₁v₁ + ... + cᵣvᵣ = 0 forces every cᵢ = 0","B","Dependent is the opposite of independent.");
+q("Any set of vectors that contains the zero vector is:","linearly dependent§linearly independent only in R²§a basis§linearly independent","A","Put coefficient 1 on 0 and 0 on the rest.");
+q("A single nonzero vector v in R³ is:","linearly dependent unless v is a unit vector§a spanning set for R³§linearly independent§linearly dependent","C","kv = 0 with v ≠ 0 forces k = 0.");
+q("Any three vectors in R² are:","always linearly independent§independent if they have different lengths§always linearly dependent§independent if none is zero","C","R² has only two independent directions.");
+q("Any four vectors in R³ are:","independent if none is the zero vector§always linearly independent§independent if no two are parallel§always linearly dependent","D","A set with more vectors than the dimension must be dependent.");
+q("Two vectors in R² are linearly dependent exactly when:","they are perpendicular§one is a scalar multiple of the other (they lie on the same line through the origin)§they have the same length§their sum is the zero vector","B","Dependent in R² means collinear.");
+q("Two nonzero vectors in R³ are linearly dependent exactly when:","they lie in the xy-plane§they have equal lengths§they are perpendicular§they are parallel (lie on one line through the origin)","D","Two vectors can only be dependent if one is a multiple of the other.");
+q("Three vectors in R³ drawn from the origin are linearly dependent exactly when:","they are mutually perpendicular§they all have length 1§they all lie in the first octant§they lie in a common plane through the origin (they are coplanar)","D","Independent vectors in R³ must point out of every plane.");
+q("Three vectors in R³ are the columns of a 3 × 3 matrix A. They are linearly independent exactly when:","A is symmetric§det(A) ≠ 0§tr(A) ≠ 0§det(A) = 0","B","Ax = 0 has only the trivial solution when A is invertible.");
+q("Are the vectors u = (1, 2) and v = (3, 4) in R² linearly independent or dependent?","Linearly independent (determinant = −2)§Linearly independent (determinant = 0)§Linearly dependent (determinant = −2)§Linearly dependent (determinant = 2)","A","Compute u₁v₂ − u₂v₁.");
+q("Are the vectors u = (2, −4) and v = (−1, 2) in R² linearly independent or dependent?","Linearly independent (determinant = 3)§Linearly dependent (determinant = 0)§Linearly dependent (determinant = 2)§Linearly independent (determinant = 0)","B","Compute u₁v₂ − u₂v₁.");
+q("Are the vectors u = (5, 1) and v = (10, 3) in R² linearly independent or dependent?","Linearly dependent (determinant = −5)§Linearly independent (determinant = 5)§Linearly dependent (determinant = 5)§Linearly independent (determinant = 7)","B","Compute u₁v₂ − u₂v₁.");
+q("Are the vectors u = (6, 9) and v = (2, 3) in R² linearly independent or dependent?","Linearly independent (determinant = 3)§Linearly dependent (determinant = 2)§Linearly independent (determinant = 0)§Linearly dependent (determinant = 0)","D","Compute u₁v₂ − u₂v₁.");
+q("Vectors (1, 0, 0), (0, 1, 0), (0, 0, 1) in R³ are:","Linearly dependent (determinant = 1)§Linearly independent (determinant = 1)§Linearly independent (determinant = 4)§Linearly dependent (determinant = −1)","B","Put the vectors in the rows (or columns) of a 3 × 3 matrix and take the determinant.");
+q("Vectors (1, 2, 3), (4, 5, 6), (7, 8, 9) in R³ are:","Linearly independent (determinant = 4)§Linearly dependent (determinant = 0)§Linearly independent (determinant = 0)§Linearly dependent (determinant = 3)","B","Put the vectors in the rows (or columns) of a 3 × 3 matrix and take the determinant.");
+q("Vectors (1, 0, 1), (0, 1, 1), (1, 1, 2) in R³ are:","Linearly independent (determinant = 0)§Linearly independent (determinant = 4)§Linearly dependent (determinant = 0)§Linearly dependent (determinant = 3)","C","Put the vectors in the rows (or columns) of a 3 × 3 matrix and take the determinant.");
+q("Vectors (2, 1, 0), (1, 3, 1), (0, 1, 4) in R³ are:","Linearly independent (determinant = 21)§Linearly dependent (determinant = −18)§Linearly dependent (determinant = 18)§Linearly independent (determinant = 18)","D","Put the vectors in the rows (or columns) of a 3 × 3 matrix and take the determinant.");
+q("For which value of k are (1, 2) and (3, k) linearly dependent?","k = 3/2§k = 6§k = 3§k = 2","B","(3, k) must be a multiple of (1, 2).");
+q("For which k are (1, 0, 1), (0, 1, 1) and (1, 1, k) linearly dependent?","k = 1§k = 3§k = 0§k = 2","D","Set the determinant of the three vectors equal to 0. It works out to k − 2.");
+q("For v₁ = (1, 2) and v₂ = (3, 6), which equation shows they are linearly dependent?","3v₁ + v₂ = 0§v₁ + v₂ = 0§3v₁ − v₂ = 0§v₁ − 3v₂ = 0","C","(3, 6) = 3(1, 2).");
+q("Are (1, 2), (2, 4) and (5, 1) in R² linearly independent?","No; any three vectors in R² are dependent (also (2, 4) = 2(1, 2))§Yes; there are three different vectors§Yes; no vector is zero§Yes; the determinant is nonzero","A","Count the vectors against the dimension.");
+q("Which set is linearly independent in R²?","{(1, 2), (2, 4)}§{(0, 0), (1, 3)}§{(1, 0), (1, 1)}§{(1, 0), (0, 1), (1, 1)}","C","Look for a zero vector, a multiple, or too many vectors.");
+q("If the columns of a 3 × 3 matrix A are linearly independent, then:","Ax = b has no solution for some b in the span of the columns§Ax = 0 has only the trivial solution and A is invertible§det(A) = 0§A has a zero row","B","Independent columns means no nontrivial combination gives 0.");
+q("A set of vectors containing two equal vectors is:","a basis§linearly dependent§linearly independent§linearly independent if the vectors are nonzero","B","Subtract one copy from the other.");
+q("Two linearly independent vectors in R² always:","span only a line§span only the origin§span all of R²§form a basis of R³","C","Two independent directions fill the plane.");
+q("Three linearly independent vectors in R³ always:","have det = 0§span all of R³§lie in one plane§span only a plane","B","Three independent directions fill the space.");
+
+sec(8);
+q("For A = [2 −1; 0 3] and B = [1 4; −2 5], A + B equals:","[2 −4; 0 15]§[1 −5; 2 −2]§[4 3; −2 8]§[3 3; −2 8]","D","Add entries in matching positions.");
+q("For the same A and B, A − B equals:","[−1 5; −2 2]§[3 3; −2 8]§[1 −5; 2 −2]§[1 −5; 2 −1]","C","Subtract B from A entry by entry.");
+q("For the same A and B, 2A − 3B equals:","[4 −11; 4 −1]§[1 −14; 6 −9]§[7 10; −6 21]§[−1 14; −6 9]","B","Scale first, then subtract.");
+q("For the same A and B, AB equals:","[4 3; −6 15]§[2 −4; 0 15]§[4 1; −6 15]§[2 11; −4 17]","A","Row of A times column of B, for each entry.");
+q("For the same A and B, BA equals:","[4 −6; 3 15]§[2 −4; 0 15]§[4 3; −6 15]§[2 11; −4 17]","D","Now rows of B times columns of A.");
+q("For A = [1 2; 3 4] and B = [0 1; 1 0], AB equals:","[0 2; 3 0]§[1 2; 3 4]§[2 1; 4 3]§[3 4; 1 2]","C","Multiplying by B swaps the columns of A.");
+q("For the same A and B, BA equals:","[2 1; 4 3]§[0 1; 1 0]§[3 4; 1 2]§[0 2; 3 0]","C","Multiplying on the left by B swaps the rows of A.");
+q("For A = [1 2; 3 4], A² equals:","[2 4; 6 8]§[7 10; 15 22]§[1 3; 2 4]§[1 4; 9 16]","B","A² means A times A, not squaring every entry.");
+q("For A = [1 2; 3 4], Aᵀ equals:","[−2 1; 3/2 −1/2]§[−1 −2; −3 −4]§[1 2; 3 4]§[1 3; 2 4]","D","Rows become columns.");
+q("For C = [1 0 2; −1 3 1] (2 × 3) and D = [2 1; 0 −1; 1 1] (3 × 2), CD equals:","[4 −1; 3 −3]§[4 3; −1 −3]§[1 3 5; 1 −3 −1; 0 3 3]§[5 3; −1 −3]","B","The product of a 2 × 3 and a 3 × 2 matrix is 2 × 2.");
+q("For the same C and D, the product DC has size:","3 × 3§2 × 3§2 × 2§3 × 2","A","(3 × 2)(2 × 3) gives 3 × 3.");
+q("For A = [1 0 2; −1 3 1; 2 1 0] and B = [2 1 0; 0 −1 3; 1 1 1], A − B equals:","[3 1 2; −1 2 4; 3 2 1]§[1 1 −2; 1 −4 2; −1 0 1]§[−1 −1 2; −1 4 −2; 1 0 0]§[−1 −1 2; −1 4 −2; 1 0 −1]","D","Subtract entry by entry in a 3 × 3.");
+q("For the same 3 × 3 matrices A and B, the (2, 3) entry of AB is:","−1§10§11§1","B","Row 2 of A times column 3 of B.");
+q("For the same 3 × 3 matrices, AB equals:","[3 3 2; −1 −3 10; 4 1 3]§[1 3 5; 7 0 −1; 2 4 3]§[2 0 0; 0 −3 3; 2 1 0]§[4 3 2; −1 −3 10; 4 1 3]","D","Nine row-by-column dot products.");
+q("For the 4 × 4 matrices A = [1 0 0 2; 0 1 3 0; 0 0 1 1; 2 0 0 1] and B = [1 1 0 0; 0 2 0 1; 3 0 1 0; 0 0 2 1], the (2, 1) entry of AB is:","9§1§−9§10","A","Row 2 of A times column 1 of B.");
+q("For the same 4 × 4 matrices, the (4, 4) entry of A + B is:","2§0§3§1","A","Add the two (4, 4) entries.");
+q("The trace of the 4 × 4 matrix [2 0 1 0; 1 3 0 4; 0 5 −1 2; 7 0 0 5] is:","0§9§10§8","B","Add the main diagonal entries.");
+q("If A is 2 × 3 and B is 3 × 4, then AB is:","defined, and 4 × 2§defined, and 2 × 4§not defined§defined, and 3 × 3","B","Inner sizes match (3 and 3); the outer sizes give the result.");
+q("If A is 2 × 3 and B is 3 × 4, then BA is:","defined, and 2 × 4§not defined, because the columns of B (4) do not match the rows of A (2)§defined, and 3 × 3§defined, and 4 × 3","B","Compare the inner sizes: 4 and 2.");
+q("A + B is defined only when:","A and B are invertible§A and B have the same size§the columns of A equal the rows of B§A and B are square","B","Addition works entry by entry.");
+q("In general, for square matrices A and B of the same size:","AB = BA only when the matrices are 3 × 3§AB ≠ BA is possible, so the order of multiplication matters§AB = BA always§AB = BA whenever both are invertible","B","Compare the 2 × 2 examples above.");
+q("For matrices A and B for which AB is defined, (AB)ᵀ equals:","AᵀBᵀ§ABᵀ§BᵀAᵀ§BAᵀ","C","The transpose reverses the order.");
+q("If I is the n × n identity matrix and A is n × n, then AI equals:","0§I§Aᵀ§A","D","I does nothing under multiplication.");
+q("The matrix [1 0 0; 0 −4 0; 0 0 7] is called:","a diagonal matrix§a zero matrix§a skew-symmetric matrix§an identity matrix","A","Everything off the main diagonal is 0.");
+q("A square matrix is upper triangular when:","all entries below the main diagonal are 0§all diagonal entries are 0§all entries above the main diagonal are 0§all entries are equal","A","Upper means the nonzero entries sit on and above the diagonal.");
+
+sec(9);
+q("det [3 5; 2 4] equals:","22§2§12§−2","B","ad − bc.");
+q("det [1 −2; 3 6] equals:","0§−12§6§12","D","ad − bc.");
+q("det [4 2; 6 3] equals:","24§0§12§−1","B","ad − bc.");
+q("det [−1 5; 2 7] equals:","3§−7§−17§17","C","ad − bc.");
+q("For A = [2 1 3; 0 4 1; 1 0 2], the minor M₁₂ is:","2§8§−4§−1","D","Delete row 1 and column 2, then take the 2 × 2 determinant.");
+q("For the same A, the cofactor C₁₂ is:","8§1§−1§−2","B","C₁₂ = (−1)¹⁺² M₁₂.");
+q("For the same A, the cofactor C₂₃ is:","−1§−2§8§1","D","Delete row 2 and column 3; the sign is (−1)²⁺³ = −1.");
+q("The sign attached to the cofactor C₃₂ is:","It depends on the entry§−  (since (−1)³⁺² = −1)§+  (since 3 and 2 are different)§+  (since (−1)³⁺² = 1)","B","Add the row and column numbers: odd gives a minus.");
+q("The sign pattern of cofactors for a 3 × 3 matrix is:","[+ − +; + − +; + − +]§[− + −; + − +; − + −]§[+ + +; + + +; + + +]§[+ − +; − + −; + − +]","D","The top-left sign is +, then they alternate.");
+q("det [2 1 3; 0 4 1; 1 0 2] equals:","−5§5§7§6","B","Expand along the first row, or use Sarrus.");
+q("det [1 2 3; 4 5 6; 7 8 9] equals:","−45§45§3§0","D","Row 3 − Row 2 = Row 2 − Row 1.");
+q("det [2 −1 0; 3 1 4; 0 2 −2] equals:","−26§−4§−25§26","A","Expand along row 1; one term disappears because of the 0.");
+q("det [3 5 −1; 0 2 7; 0 0 −4] equals:","1§24§−23§−24","D","For a triangular matrix, multiply the diagonal.");
+q("det [1 2 0 0; 3 4 0 0; 0 0 5 6; 0 0 7 8] equals:","−4§160§4§−2","C","The matrix splits into two 2 × 2 blocks; multiply their determinants.");
+q("det [2 7 1 3; 0 −1 4 5; 0 0 3 2; 0 0 0 5] equals:","9§−29§−30§30","C","Upper triangular: multiply the diagonal entries.");
+q("det [1 2 3 4; 0 0 0 0; 5 6 7 8; 9 1 2 3] equals:","2§−1§1§0","D","Look for a row of zeros.");
+q("det [1 0 2 0; 0 3 0 1; 2 0 1 0; 0 1 0 2] equals:","6§−14§15§−15","D","Rearranging rows and columns shows two 2 × 2 blocks.");
+q("det [2 0 0 0; 1 3 4 5; 0 1 2 1; 5 0 1 1] equals:","9§8§12§−8","B","Expand along row 1: only one entry is nonzero.");
+q("Swapping two rows of a square matrix:","doubles the determinant§leaves the determinant unchanged§multiplies the determinant by −1§makes the determinant 0","C","One row swap flips the sign.");
+q("Multiplying one row of a matrix by 3 multiplies its determinant by:","9§27§1§3","D","The scalar comes out once, for that single row.");
+q("Adding a multiple of one row to another row:","multiplies the determinant by that multiple§does not change the determinant§changes the sign of the determinant§makes the determinant 0","B","This is the operation used to make zeros safely.");
+q("If A is 3 × 3 and det(A) = 5, then det(2A) equals:","10§20§25§40","D","det(kA) = kⁿ det(A) with n = 3.");
+q("If A is 3 × 3 and det(A) = 5, then det(A⁻¹) equals:","1/25§−5§5§1/5","D","det(A⁻¹) = 1/det(A).");
+q("If A is 3 × 3 and det(A) = 5, then det(adj A) equals:","25§1/5§5§125","A","det(adj A) = det(A)ⁿ⁻¹.");
+q("If det(A) = 4 and det(B) = −3 for 3 × 3 matrices, then det(AB) equals:","12§−12§1§−7","B","det(AB) = det(A)det(B).");
+q("For any square matrix A, det(Aᵀ) equals:","1/det(A)§0§−det(A)§det(A)","D","Transposing does not change the determinant.");
+q("A square matrix with two identical rows has determinant:","1§−1§0§the product of the diagonal","C","Subtract one row from the other to get a zero row.");
+q("A square matrix A is singular (not invertible) exactly when:","A is symmetric§det(A) > 0§det(A) = 1§det(A) = 0","D","det ≠ 0 is the test for invertibility.");
+q("For which x is the matrix [x 2; 3 6] singular?","x = 3§x = 0§x = 1§x = 2","C","Solve 6x − 6 = 0.");
+q("For which x is the matrix [1 x; x 4] singular?","x = 2 only§x = 0§x = 2 or x = −2§x = 4","C","Solve 4 − x² = 0.");
+
+sec(10);
+q("The inverse of A = [3 1; 5 2] is:","[2 −1; −5 3]§[2 1; 5 3]§[−2 1; 5 −3]§[3 5; 1 2]","A","A⁻¹ = (1/det A)[d −b; −c a].");
+q("The inverse of A = [2 4; 1 3] is:","[3 4; 1 2]§[3 −4; −1 2]§[3/2 −2; −1/2 1]§[−3/2 2; 1/2 −1]","C","A⁻¹ = (1/det A)[d −b; −c a].");
+q("The inverse of A = [1 2; 3 7] is:","[7 −2; −3 1]§[1 3; 2 7]§[7 2; 3 1]§[−7 2; 3 −1]","A","A⁻¹ = (1/det A)[d −b; −c a].");
+q("For A = [a b; c d], the adjoint adj(A) is:","[d −b; −c a]§[−d b; c −a]§[d b; c a]§[a −b; −c d]","A","Swap the diagonal, negate the off-diagonal.");
+q("The matrix [1 2; 2 4] has an inverse:","Yes, [1/2 1/4; 1/2 1/4]§Yes, but only over the rationals§No, because its determinant is 0§Yes, [4 −2; −2 1]","C","Compute ad − bc first.");
+q("The adjoint of a square matrix A is:","the transpose of its cofactor matrix§the matrix of minors§the inverse of the cofactor matrix§the cofactor matrix itself","A","Cofactors first, then transpose.");
+q("For an invertible matrix A, the inverse is given by:","A⁻¹ = (1/det A) · A§A⁻¹ = adj(A)ᵀ§A⁻¹ = (1/det A) · adj(A)§A⁻¹ = det(A) · adj(A)","C","The adjoint divided by the determinant.");
+q("For any n × n matrix A, A · adj(A) equals:","I§det(A) · I§A²§adj(A) · det(A) · A","B","This identity is why the inverse formula works.");
+q("For A = [2 1 3; 0 4 1; 1 0 2], the cofactor matrix is:","[2 1 3; 0 4 1; 1 0 2]§[8 3 −4; −2 1 1; −11 −2 8]§[8 −2 −11; 1 1 −2; −4 1 8]§[8 1 −4; −2 1 1; −11 −2 8]","D","Compute all nine cofactors with the sign pattern.");
+q("For the same A, adj(A) is:","[−8 2 11; −1 −1 2; 4 −1 −8]§[8/5 −2/5 −11/5; 1/5 1/5 −2/5; −4/5 1/5 8/5]§[8 1 −4; −2 1 1; −11 −2 8]§[8 −2 −11; 1 1 −2; −4 1 8]","D","adj(A) = (cofactor matrix)ᵀ.");
+q("For the same A (det A = 5), the entry in row 1, column 1 of A⁻¹ is:","−8/5§−2/5§8/5§8","C","A⁻¹ = (1/5) adj(A).");
+q("For A = [1 2 3; 0 1 4; 5 6 0] (det A = 1), the inverse is:","[−24 18 5; 20 −15 −4; −5 4 1]§[−24 20 −5; 18 −15 4; 5 −4 1]§[1 0 5; 2 1 6; 3 4 0]§[24 −18 −5; −20 15 4; 5 −4 −1]","A","With det = 1, the inverse equals the adjoint.");
+q("For the same A, the entry in row 2, column 3 of A⁻¹ is:","−4§4§18§−15","A","Read it from the inverse you just found, or from cofactor C₃₂.");
+q("The inverse of the 4 × 4 diagonal matrix diag(1, 2, 4, 5) is:","diag(1, −2, −4, −5)§diag(5, 4, 2, 1)§diag(1, 1/2, 1/4, 1/5)§diag(−1, −2, −4, −5)","C","Invert each diagonal entry.");
+q("For invertible n × n matrices A and B, (AB)⁻¹ equals:","A⁻¹B⁻¹§B⁻¹A⁻¹§BA§(A + B)⁻¹","B","Reverse the order, as with transposes.");
+q("For an invertible matrix A and a nonzero scalar k, (kA)⁻¹ equals:","(1/k)A⁻¹§kA⁻¹§(1/k)A§A⁻¹ − k","A","Scale the inverse by the reciprocal.");
+q("For an invertible matrix A, (A⁻¹)⁻¹ equals:","A⁻¹§A§I§Aᵀ","B","Undoing an undo gives the original.");
+q("For an invertible matrix A, (Aᵀ)⁻¹ equals:","(A⁻¹)ᵀ§Aᵀ§(A⁻¹)⁻¹§A⁻¹","A","Inversion and transpose commute.");
+q("Solve Ax = b with A = [3 1; 5 2] and b = [3; 3] using x = A⁻¹b:","x = [−3; 6]§x = [3; 3]§x = [3; −6]§x = [−6; 3]","C","A⁻¹ = [2 −1; −5 3].");
+q("A square matrix A is invertible exactly when:","tr(A) ≠ 0§A is symmetric§det(A) ≠ 0§det(A) = 0","C","Nonzero determinant.");
+
+sec(11);
+q("Which of these is NOT an elementary row operation?","Multiply a row by a nonzero constant§Add a multiple of one row to another row§Swap two rows§Replace a row by the sum of its own entries","D","There are exactly three types.");
+q("Multiplying a row by 0 is not allowed as a row operation because:","it makes the determinant 1§it is the same as adding rows§it destroys information and can change the solution set§it swaps two rows","C","Row operations must be reversible.");
+q("Which row operations leave the solution set of a linear system unchanged?","All three: swapping rows, scaling a row by a nonzero constant, and adding a multiple of a row to another§Only adding multiples of rows§None of them§Only swapping rows","A","Each is reversible.");
+q("Which matrix is in reduced row echelon form (RREF)?","[1 0 0; 0 2 0; 0 0 1]§[1 0 2; 0 1 3; 0 0 0]§[0 1 2; 1 0 3; 0 0 1]§[1 2 0; 0 1 3; 0 0 0]","B","Leading 1s, zeros above and below each, rows of zeros at the bottom.");
+q("Which matrix is in row echelon form but NOT in reduced row echelon form?","[1 0 2; 0 1 3; 0 0 0]§[1 2 0; 0 1 3; 0 0 0]§[0 1 2; 1 0 3; 0 0 1]§[1 0 0; 0 2 0; 0 0 1]","B","Look for a nonzero entry above a leading 1.");
+q("In row echelon form, a pivot (leading 1) in a lower row must be:","to the left of the pivot above§in the first column§to the right of the pivot in the row above§directly below the pivot above","C","The pivots step down and to the right.");
+q("The main difference between Gauss elimination and Gauss-Jordan elimination is:","Gauss uses columns and Gauss-Jordan uses rows§Gauss stops at row echelon form and back-substitutes; Gauss-Jordan continues to reduced row echelon form§Gauss-Jordan cannot find the inverse§Gauss works only for 2 × 2 systems","B","One stops early, the other goes all the way.");
+q("Solve the system by Gauss elimination:  x + y + z = 6,  2x − y + z = 3,  x + 2y − z = 2","(x, y, z) = (3, 2, 1)§(x, y, z) = (1, 2, 3)§(x, y, z) = (2, 3, 1)§(x, y, z) = (1, 3, 2)","B","Make zeros below the first pivot, then the second, then back-substitute.");
+q("Solve the system by Gauss elimination:  x + 2y + z = 3,  2x − y + z = 8,  3x + y − z = 2","(x, y, z) = (2, 3, −1)§(x, y, z) = (−1, 3, 2)§(x, y, z) = (3, −1, 2)§(x, y, z) = (2, −1, 3)","D","Make zeros below the first pivot, then the second, then back-substitute.");
+q("Solve the 4 × 4 system:  w + x + z = 3,  x + 2y − z = 0,  2w + y + z = 7,  w + 2x − y = -3  (unknowns w, x, y, z)","(w, x, y, z) = (1, −1, 2, 3)§(w, x, y, z) = (1, 2, −1, 3)§(w, x, y, z) = (−1, 1, 2, 3)§(w, x, y, z) = (3, 2, −1, 1)","A","Substitute each option into the first equation to rule out wrong ones, then confirm in all four.");
+q("The system  x + y = 2,  2x + 2y = 5  has:","the solution x = y = 1§no solution (inconsistent)§infinitely many solutions§exactly one solution","B","Reduce: the second row becomes 0 0 | 1.");
+q("The system  x + y + z = 3,  2x + 2y + 2z = 6,  x − y = 0  has:","infinitely many solutions, with one free variable§no solution§exactly one solution§infinitely many solutions, with two free variables","A","Rank is 2 and there are 3 unknowns.");
+q("After row reduction, a row of the form [0 0 0 | 5] tells you that:","x = 5§the system is inconsistent (no solution)§there are infinitely many solutions§the system has a unique solution","B","It says 0 = 5.");
+q("If a consistent system has 5 unknowns and its coefficient matrix has rank 3, the number of free variables is:","3§8§5§2","D","free variables = unknowns − rank.");
+q("Gauss-Jordan reduces the augmented matrix [1 2 −1 | 3; 2 5 1 | 13; 1 1 −4 | −2] to:","[1 2 −1 | 3; 2 5 1 | 13; 1 1 −4 | −2]§[1 0 −7 | 0; 0 1 3 | 0; 0 0 0 | 0]§[1 0 −7 | 0; 0 1 3 | 0; 0 0 0 | 1]§[1 0 −7 | 1; 0 1 3 | 0; 0 0 0 | 1]","C","Reduce until the left block is the identity.");
+q("After the operation R2 → R2 − 2R1 on [1 3 | 5; 2 7 | 12], row 2 becomes:","(1, 4 | 7)§(0, 13 | 22)§(0, 1 | 12)§(0, 1 | 2)","D","Compute 2 − 2·1, 7 − 2·3 and 12 − 2·5.");
+q("The rank of [1 2 3; 2 4 6; 1 0 1] is:","1§2§4§3","B","Count the nonzero rows after reduction.");
+q("The rank of [1 2 1; 0 1 3; 1 3 4] is:","1§2§4§3","B","Count the nonzero rows after reduction.");
+q("The rank of [1 0 2 1; 0 1 1 1; 1 1 3 2; 2 1 5 3] is:","4§3§1§2","D","Count the nonzero rows after reduction.");
+q("To find A⁻¹ by Gauss-Jordan elimination, row reduce:","[A | I] until it becomes [I | A⁻¹]§[I | A] until it becomes [A⁻¹ | I]§[A | A] until it becomes [I | I]§[Aᵀ | I] until it becomes [I | A]","A","Apply to I the same operations that turn A into I.");
+q("Reducing [1 2 | 1 0; 3 7 | 0 1] to [I | ?], the right-hand block is:","[1 2; 3 7]§[7 −3; −2 1]§[−1 −2; −3 −7]§[7 −2; −3 1]","D","That block is A⁻¹.");
+q("Row reducing [A | I] for A = [1 2 3; 0 1 4; 5 6 0] gives [I | B]. The entry in row 1, column 1 of B is:","−15§24§−24§1","C","B = A⁻¹.");
+q("If row reduction of [A | I] produces a zero row in the left block, then:","A is the identity§A is not invertible§A is invertible with det 0§A⁻¹ = A","B","A cannot be reduced to I.");
+q("In Gauss elimination, back-substitution means:","swapping the rows back§solving for the first variable first§solving for the last variable first, then working upward§transposing the matrix","C","Use the bottom row of the echelon form first.");
+
+sec(12);
+q("In the Hill cipher below, letters are numbered A = 1, B = 2, ..., Y = 25, Z = 0. The plaintext HELP, split into pairs, gives the vectors:","(7, 4) and (11, 15)§(8, 5) and (12, 16)§(5, 8) and (16, 12)§(8, 12) and (5, 16)","B","H is the 8th letter, E the 5th, L the 12th, P the 16th.");
+q("With A = 1, ..., Y = 25, Z = 0, the letter Z corresponds to:","0§25§1§26","A","Z = 26 ≡ 0 (mod 26).");
+q("With A = 1, ..., Z = 0, the ciphertext (13, 15) spells:","MO§OM§LN§NP","A","13 is M, 15 is O.");
+q("Use K = [3 3; 2 5] (A = 1, ..., Z = 0, arithmetic mod 26). Encrypting HE gives:","MO§WW§GH§HW","A","p = (8, 5), then c = Kp mod 26.");
+q("With the same K, the plaintext HELP encrypts to:","HWPL§MOFZ§GHKL§WWJT","B","Encrypt HE and LP separately and join the results.");
+q("For K = [3 3; 2 5], det K = 9. The inverse of 9 modulo 26 is:","3§9§13§17","A","Find x with 9x ≡ 1 (mod 26): 9·3 = 27.");
+q("For K = [3 3; 2 5], K⁻¹ modulo 26 is:","[5 23; 24 3]§[15 17; 20 9]§[5/9 −1/3; −2/9 1/3]§[15 20; 17 9]","B","K⁻¹ = (9⁻¹ mod 26)·adj(K), reduced mod 26.");
+q("With K = [3 3; 2 5], decrypting the ciphertext MO (c = (13, 15)) with p = K⁻¹c gives:","OM§FW§AR§HE","D","Multiply c by K⁻¹ = [15 17; 20 9] and reduce mod 26.");
+q("Use K = [1 2; 1 3] (A = 1, ..., Z = 0, mod 26). Encrypting ME gives:","CR§NF§RO§WB","D","M = 13, E = 5.");
+q("For K = [1 2; 1 3], K⁻¹ modulo 26 is:","[3 −2; −1 1]§[3 24; 25 1]§[1 2; 1 3]§[3 25; 24 1]","B","det K = 1, so K⁻¹ = adj(K) = [3 −2; −1 1]; now reduce mod 26.");
+q("With K = [1 2; 1 3], the ciphertext KZ decrypts to:","KK§GD§GO§OG","C","c = (11, 0); apply K⁻¹ = [3 24; 25 1].");
+q("The Hill cipher turns a plaintext vector p into a ciphertext vector c by:","c = K + p (mod 26)§c = K⁻¹p (mod 26)§c = pK⁻¹§c = Kp (mod 26)","D","The key matrix multiplies the plaintext vector.");
+q("The Hill cipher recovers the plaintext from the ciphertext by:","p = K⁻¹c (mod 26)§p = c / K§p = Kc (mod 26)§p = cK","A","Undo multiplication by K using its inverse.");
+q("A 2 × 2 integer matrix K can serve as a Hill cipher key (mod 26) only if:","gcd(det K, 26) = 1§det K is even§all entries of K are below 26§det K = 0","A","K must be invertible modulo 26.");
+q("Which matrix cannot be used as a Hill cipher key mod 26?","[1 2; 3 4]§[1 2; 1 3]§[2 1; 3 2]§[3 3; 2 5]","A","Check each determinant against 26: det [1 2; 3 4] = −2.");
+q("A Hill cipher with a 3 × 3 key matrix encrypts the message in blocks of:","3 letters§2 letters§9 letters§26 letters","A","The block size equals the size of the key.");
+
+sec(13);
+q("Is w = (2, 3, 7) in span{u, v}, where u = (1, 0, 2) and v = (0, 1, 1)?","Yes, w = −2u + 3v§Yes, w = 3u + 2v§Yes, w = 2u − 3v§Yes, w = 2u + 3v","D","Solve k₁u + k₂v = w for k₁ and k₂.");
+q("Is w = (1, 3, 4) in span{u, v}, where u = (1, 2, 3) and v = (0, 1, 1)?","Yes, w = 1u − 1v§Yes, w = 2u + 1v§Yes, w = −1u + 1v§Yes, w = 1u + 1v","D","Solve k₁u + k₂v = w for k₁ and k₂.");
+q("Is w = (0, −3, 6) in span{u, v}, where u = (2, 1, 0) and v = (1, −1, 3)?","Yes, w = 2u − 1v§Yes, w = 1u + 2v§Yes, w = −1u − 2v§Yes, w = −1u + 2v","D","Solve k₁u + k₂v = w for k₁ and k₂.");
+q("Is w = (2, 3, 5) in span{u, v}, where u = (1, 0, 0) and v = (0, 1, 0)?","Yes, w = u + 2v§Yes, w = 2u + v§No; the system for the coefficients is inconsistent§Yes, w = u + v","C","Set up k₁u + k₂v = w and look for a contradiction.");
+q("Is w = (1, 2, 3) in span{u, v}, where u = (1, 1, 0) and v = (0, 1, 1)?","No; the system for the coefficients is inconsistent§Yes, w = u + 2v§Yes, w = u + v§Yes, w = 2u + v","A","Set up k₁u + k₂v = w and look for a contradiction.");
+q("Is w = (1, 1, 1) in span{u, v}, where u = (1, 2, 3) and v = (2, 4, 6)?","No; the system for the coefficients is inconsistent§Yes, w = u + 2v§Yes, w = 2u + v§Yes, w = u + v","A","Set up k₁u + k₂v = w and look for a contradiction.");
+q("Write (7, 10) as a linear combination of u = (1, 2) and v = (3, 4):","(7, 10) = 7·u + 10·v§(7, 10) = 3·u + 1·v§(7, 10) = 2·u + 1·v§(7, 10) = 1·u + 2·v","D","Solve k₁ + 3k₂ = 7 and 2k₁ + 4k₂ = 10.");
+q("The span of {(1, 2), (3, 4)} in R² is:","the line y = 2x§all of R², because the vectors are not parallel (det = −2 ≠ 0)§a plane in R³§only the origin","B","Two non-parallel vectors in R² span R².");
+q("The span of {(1, 2), (2, 4)} in R² is:","only the origin§all of R²§the line y = 2x§the line y = x/2","C","(2, 4) is a multiple of (1, 2).");
+q("Is (3, 5) in span{(1, 2), (2, 4)}?","Yes, (3, 5) = 3(1, 2) + 1(2, 4)§No; every vector in the span has the form (a, 2a), and 5 ≠ 6§Yes, because the span is R²§Yes, if the scalars are negative","B","Check the line y = 2x.");
+q("The span of u = (1, 0, 1) and v = (0, 1, 1) in R³ is the plane:","z = 0§z = x + y§x + y + z = 0§z = x − y","B","Every combination au + bv = (a, b, a + b).");
+q("Does {(1, 1, 0), (0, 1, 1), (1, 0, 1)} span R³?","Yes; because they have equal length§Yes; the determinant is 2, so the vectors are independent§No; three vectors can never span R³§No; they span only a plane","B","Compute the determinant of the three vectors.");
+q("Does {(1, 2, 3), (2, 4, 6), (0, 1, 0)} span R³?","No; (2, 4, 6) = 2(1, 2, 3), so they span only a plane§No; they span only a line§Yes; none is the zero vector§Yes; there are three vectors","A","Look for a vector that is a multiple of another.");
+q("Which set spans R³?","{(1, 1, 1), (1, 2, 3), (1, 4, 9)}§{(1, 0, 0), (0, 1, 0)}§{(1, 2, 3), (4, 5, 6), (7, 8, 9)}§{(1, 1, 1), (2, 2, 2), (3, 3, 3)}","A","You need three independent vectors: determinant ≠ 0.");
+q("The vector (0, 0, 0) is always in the span of any set of vectors because:","it is perpendicular to everything§every set contains it§it is the combination with every coefficient equal to 0§it has length 0","C","Take all coefficients to be 0.");
+
+// ---------- LESSONS ----------
+const LESSONS=[
+{t:0,title:"Vectors and components",lead:"A vector in Rⁿ is an ordered list of n numbers. Most early questions come down to arithmetic on those lists, plus one habit: terminal point minus initial point.",body:`
+<h3>Components of the vector between two points</h3>
+<p>For the vector from P₁(x₁, y₁) to P₂(x₂, y₂), subtract the start from the end:</p>
+<div class="eq">P₁P₂ = (x₂ − x₁, y₂ − y₁)</div>
+<p>In R³ and beyond it is the same thing, one coordinate at a time.</p>
+<div class="ex"><b>Example</b>From P₁(1, 5) to P₂(4, 1): (4 − 1, 1 − 5) = (3, −4). From (0, 0, 4) to (2, 3, 0): (2, 3, −4).</div>
+<h3>Finding a missing endpoint</h3>
+<p>If v goes from A to B, then B = A + v and A = B − v.</p>
+<div class="ex"><b>Example</b>v = (1, 2) starts at A(1, 1), so B = (2, 3). If v = (1, 1, 3) ends at B(−1, −1, 2), then A = (−2, −2, −1).</div>
+<h3>Adding, subtracting and scaling</h3>
+<p>All three work component by component. Scaling multiplies every component.</p>
+<div class="ex"><b>Example</b>u = (4, −1), v = (0, 5), w = (−3, −3). Find 3v − 2(u + 2w).<br>
+2w = (−6, −6), so u + 2w = (−2, −7) and 2(u + 2w) = (−4, −14). Also 3v = (0, 15).<br>
+3v − 2(u + 2w) = (0 + 4, 15 + 14) = (4, 29).</div>
+<div class="trap"><b>Common slip</b>Subtracting a bracket flips the sign of every component inside it. Here you are subtracting (−4, −14), so you add 4 and 14.</div>
+<details class="check"><summary>Check yourself: vector from (−3, 3) to (2, 3)</summary><p>(2 − (−3), 3 − 3) = (5, 0).</p></details>`},
+
+{t:1,title:"Vector space axioms",lead:"A vector space is a set with two operations (addition and scalar multiplication) that obey ten rules. The objects can be arrows, matrices, polynomials or functions. The rules are what count.",body:`
+<h3>The ten axioms</h3>
+<table class="tbl">
+<tr><td>1</td><td>Closure under addition: u + v is in V</td></tr>
+<tr><td>2</td><td>Commutativity: u + v = v + u</td></tr>
+<tr><td>3</td><td>Associativity: u + (v + w) = (u + v) + w</td></tr>
+<tr><td>4</td><td>A zero vector 0 exists with u + 0 = u</td></tr>
+<tr><td>5</td><td>Every u has a negative −u with u + (−u) = 0</td></tr>
+<tr><td>6</td><td>Closure under scalar multiplication: ku is in V</td></tr>
+<tr><td>7</td><td>k(u + v) = ku + kv</td></tr>
+<tr><td>8</td><td>(k + m)u = ku + mu</td></tr>
+<tr><td>9</td><td>k(mu) = (km)u</td></tr>
+<tr><td>10</td><td>1·u = u</td></tr>
+</table>
+<h3>Zero vectors in the usual spaces</h3>
+<table class="tbl">
+<tr><td>Rⁿ</td><td>(0, 0, ..., 0)</td></tr>
+<tr><td>M₂₂</td><td>the 2 × 2 zero matrix</td></tr>
+<tr><td>Pₙ</td><td>the zero polynomial 0 + 0x + ... + 0xⁿ</td></tr>
+<tr><td>F(−∞, ∞)</td><td>the function f(x) = 0 for every x</td></tr>
+<tr><td>R∞</td><td>(0, 0, 0, ...)</td></tr>
+</table>
+<p>The negative of a vector is found by negating every component, entry or coefficient.</p>
+<h3>Three consequences you can use</h3>
+<div class="eq">0·u = 0 &nbsp;&nbsp; k·0 = 0 &nbsp;&nbsp; (−1)u = −u</div>
+<div class="ex"><b>A set that fails</b>All vectors (a, 1) in R². There is no zero vector (the second entry would have to be 0), and (a, 1) + (b, 1) = (a + b, 2) leaves the set.</div>
+<div class="trap"><b>Quick habit</b>When asked whether a set is a vector space, look for the zero vector first. If it is missing, you are done.</div>`},
+
+{t:2,title:"Subspaces: the theory",lead:"A subspace is a vector space living inside a bigger one. You never check all ten axioms. Two closure checks are enough.",body:`
+<h3>Definition</h3>
+<p>A subset W of a vector space V is a <b>subspace</b> if W is itself a vector space using the same addition and scalar multiplication as V.</p>
+<h3>The Subspace Test</h3>
+<p>A nonempty subset W of V is a subspace exactly when</p>
+<ol><li>u + v is in W whenever u and v are in W (closed under addition), and</li>
+<li>ku is in W whenever u is in W and k is any scalar (closed under scalar multiplication).</li></ol>
+<h3>Facts worth knowing cold</h3>
+<ul>
+<li>Every subspace contains the zero vector (take k = 0). If 0 is missing, the set is not a subspace.</li>
+<li>Containing 0 is necessary but not enough. Closure can still fail.</li>
+<li>The smallest subspace of V is {0}. The largest is V itself.</li>
+<li>Subspaces of R²: {0}, lines through the origin, and R².</li>
+<li>Subspaces of R³: {0}, lines through the origin, planes through the origin, and R³.</li>
+<li>The intersection of two subspaces is a subspace. The union usually is not: the x-axis ∪ y-axis contains (1, 0) and (0, 1) but not their sum (1, 1).</li>
+<li>If W is a subspace of U and U is a subspace of V, then W is a subspace of V.</li>
+</ul>
+<h3>Solution sets</h3>
+<p>The solutions of Ax = 0 form a subspace of Rⁿ, where n is the number of unknowns. The solutions of Ax = b with b ≠ 0 never do, because x = 0 is not a solution.</p>
+<div class="trap"><b>Common slip</b>The kernel of T_A : Rⁿ → Rᵐ is a subspace of Rⁿ (the inputs), not of Rᵐ.</div>`},
+
+{t:3,title:"Applying the subspace test",lead:"Here is the routine, and a list of families you will meet again and again.",body:`
+<h3>The routine</h3>
+<ol>
+<li>Does W contain the zero vector? If not, stop: not a subspace.</li>
+<li>Take two general members and add them. Is the sum still in W?</li>
+<li>Multiply a general member by k. Is it still in W?</li>
+<li>If a check fails, find one concrete example that breaks it. One counterexample is a full proof.</li></ol>
+<div class="ex"><b>Worked: yes</b>W = {(a, b, c) : b = a + c} in R³. Take (a₁, a₁ + c₁, c₁) and (a₂, a₂ + c₂, c₂). Their sum is (a₁ + a₂, (a₁ + a₂) + (c₁ + c₂), c₁ + c₂), which still has middle entry = first + last. Scaling by k keeps the relation too. W is a subspace.</div>
+<div class="ex"><b>Worked: no</b>All 2 × 2 matrices with det = 0. [1 0; 0 0] and [0 0; 0 1] are both in the set, but their sum is the identity, which has det 1. Closure under addition fails.</div>
+<h3>Families that are subspaces</h3>
+<ul>
+<li>diagonal, upper triangular, symmetric, skew-symmetric matrices</li>
+<li>matrices with trace 0</li>
+<li>{A : AB = BA} for a fixed B</li>
+<li>polynomials of degree at most n, polynomials with a₀ = 0, polynomials with p(1) = 0</li>
+<li>functions with f(0) = 0, even functions</li>
+<li>solution sets of homogeneous systems Ax = 0</li>
+</ul>
+<h3>Families that are not</h3>
+<ul>
+<li>conditions like "= 1" or "+ 1" (no zero vector): (a, 1, 1), f(0) = 1, b = a + c + 1</li>
+<li>det = 0, or invertible matrices</li>
+<li>polynomials of degree <i>exactly</i> n (x² + (−x² + 1) drops to degree 0)</li>
+<li>rational coefficients (√2·(1 + x) leaves the set)</li>
+<li>pattern sets such as (a, a², a³, a⁴): (1,1,1,1) + (1,1,1,1) = (2,2,2,2), not (2,4,8,16)</li>
+</ul>`},
+
+{t:4,title:"Solution spaces and geometry",lead:"The solution set of Ax = 0 in R³ is always a subspace, so there are only four shapes it can take. The rank of A tells you which one.",body:`
+<h3>Rank decides the shape (3 unknowns)</h3>
+<table class="tbl">
+<tr><th>rank of A</th><th>free variables</th><th>solution space</th></tr>
+<tr><td>3 (det ≠ 0)</td><td>0</td><td>the origin only</td></tr>
+<tr><td>2</td><td>1</td><td>a line through the origin</td></tr>
+<tr><td>1</td><td>2</td><td>a plane through the origin</td></tr>
+<tr><td>0 (A = 0)</td><td>3</td><td>all of R³</td></tr>
+</table>
+<div class="eq">free variables = unknowns − rank</div>
+<div class="ex"><b>Example: a line</b>A = [−1 1 1; 3 −1 0; 2 −4 −5]. From row 2, y = 3x. Put that in row 1: −x + 3x + z = 0, so z = −2x. With x = t:<br>x = t, y = 3t, z = −2t.<br>Check row 3: 2t − 12t + 10t = 0. ✓</div>
+<div class="ex"><b>Example: a plane</b>A = [1 −3 1; 2 −6 2; 3 −9 3]. Every row is a multiple of the first, so the only equation is x − 3y + z = 0. That is a plane through the origin.</div>
+<div class="ex"><b>Example: the origin</b>A = [1 2 3; 2 5 3; 1 0 8] has det A = −1 ≠ 0, so Ax = 0 has only the trivial solution.</div>
+<p>Why is it always a subspace? Because x = 0 solves it, and if Au = 0 and Av = 0 then A(u + v) = 0 and A(ku) = 0.</p>`},
+
+{t:5,title:"Linear combinations",lead:"A linear combination is a sum of scalar multiples. Deciding whether a vector is one means solving a linear system for the coefficients.",body:`
+<h3>Definition</h3>
+<p>w is a linear combination of v₁, ..., vᵣ if w = k₁v₁ + k₂v₂ + ... + kᵣvᵣ for some scalars k₁, ..., kᵣ (the <b>coefficients</b>). A combination of r vectors has r coefficients.</p>
+<h3>How to test it</h3>
+<p>Write the equation component by component and solve for the k's. If the system is inconsistent, w is not a combination.</p>
+<div class="ex"><b>Yes case</b>Is (9, 2, 7) = k₁(1, 2, −1) + k₂(6, 4, 2)?<br>
+k₁ + 6k₂ = 9, &nbsp; 2k₁ + 4k₂ = 2, &nbsp; −k₁ + 2k₂ = 7.<br>
+Add equation 1 to equation 3: 8k₂ = 16, so k₂ = 2, and then k₁ = 9 − 12 = −3.<br>
+Equation 2: 2(−3) + 4(2) = 2 ✓. So (9, 2, 7) = −3(1, 2, −1) + 2(6, 4, 2).</div>
+<div class="ex"><b>No case</b>Now try (4, −1, 8). Equations 1 + 3 give 8k₂ = 12, so k₂ = 3/2 and k₁ = 4 − 9 = −5. Equation 2 would need 2(−5) + 4(3/2) = −4, but it should be −1. Inconsistent, so (4, −1, 8) is not a combination.</div>
+<h3>Things that are always true</h3>
+<ul>
+<li>0 is a combination of any vectors (all coefficients 0).</li>
+<li>Every (a, b, c) in R³ equals a·i + b·j + c·k.</li>
+<li>In M₂₂, [1 2; 3 4] = 1·E₁₁ + 2·E₁₂ + 3·E₂₁ + 4·E₂₂.</li>
+<li>In P₂, 2 + x = 2·1 + 1·x.</li>
+</ul>
+<h3>Theorem 4.3.1</h3>
+<p>For S = {w₁, ..., wᵣ}, the set W of all linear combinations of S is (a) a subspace of V, and (b) the smallest subspace of V that contains S. The proof is just closure: adding two combinations adds the coefficients, and scaling multiplies each coefficient by k.</p>`},
+
+{t:6,title:"Spanning sets",lead:"The span of a set is everything you can build from it. To show a set spans a space, you show that every vector in the space can be built.",body:`
+<h3>Definition</h3>
+<p>span(S) is the set of all linear combinations of the vectors in S. If W = span(S) we say S <b>spans</b> W.</p>
+<h3>Geometry in R³</h3>
+<ul>
+<li>One nonzero vector spans a line through the origin.</li>
+<li>Two non-parallel vectors span a plane through the origin.</li>
+<li>Three vectors that are not coplanar span all of R³.</li>
+<li>span{0} = {0}.</li>
+</ul>
+<h3>Showing a set spans</h3>
+<p>Take an arbitrary vector b and try to solve for the coefficients. If it works for every b, the set spans.</p>
+<div class="ex"><b>{(1, 1), (1, −1)} spans R²</b>(a, b) = ((a + b)/2)(1, 1) + ((a − b)/2)(1, −1). The coefficients exist for every a and b.</div>
+<div class="ex"><b>{(1, 2), (2, 4)} does not</b>(2, 4) = 2(1, 2), so every combination lies on the line y = 2x.</div>
+<div class="ex"><b>Polynomials</b>{1, x, x²} spans P₂ since a + bx + cx² = a·1 + b·x + c·x². {1, x} cannot produce x².</div>
+<div class="ex"><b>A redundant vector</b>span{(1,0,0), (0,1,0), (1,1,0)} is the xy-plane. (1, 1, 0) is already a combination of the first two, so it adds nothing.</div>
+<h3>With matrices</h3>
+<p>If v₁, ..., vᵣ are the columns of A, they span Rⁿ exactly when Ax = b is consistent for every b in Rⁿ. For a square matrix this means det A ≠ 0.</p>
+<p>If S ⊆ T, then span(S) ⊆ span(T): use zero coefficients on the extra vectors.</p>`},
+
+{t:7,title:"Linear independence in R² and R³",lead:"Independent vectors each add a new direction. Dependent vectors contain redundancy: at least one of them can be built from the others.",body:`
+<h3>Definition</h3>
+<p>v₁, ..., vᵣ are <b>linearly independent</b> if</p>
+<div class="eq">c₁v₁ + c₂v₂ + ... + cᵣvᵣ = 0 &nbsp; ⟹ &nbsp; c₁ = c₂ = ... = cᵣ = 0</div>
+<p>If some nontrivial choice of the cᵢ gives 0, the vectors are <b>dependent</b>, and one of them is a combination of the others.</p>
+<h3>Quick rules</h3>
+<ul>
+<li>A set containing the zero vector is dependent. So is a set with two equal vectors.</li>
+<li>One nonzero vector is independent.</li>
+<li>More vectors than the dimension means dependent: any 3 vectors in R², any 4 in R³.</li>
+</ul>
+<h3>In R²</h3>
+<p>Two vectors are dependent exactly when one is a multiple of the other (they are collinear). Test with a determinant:</p>
+<div class="eq">u = (a, b), v = (c, d): independent ⟺ ad − bc ≠ 0</div>
+<div class="ex"><b>Example</b>(1, 2) and (3, 4): 1·4 − 2·3 = −2 ≠ 0, independent. (1, 2) and (3, 6): 6 − 6 = 0, dependent, and 3v₁ − v₂ = 0.</div>
+<h3>In R³</h3>
+<ul>
+<li>Two vectors are dependent exactly when they are parallel.</li>
+<li>Three vectors are dependent exactly when they are coplanar. Put them in a 3 × 3 matrix: independent ⟺ det ≠ 0.</li>
+</ul>
+<div class="ex"><b>Example</b>(1, 0, 1), (0, 1, 1), (1, 1, 2). The determinant is 1(2 − 1) − 0 + 1(0 − 1) = 0, so they are dependent. Indeed (1, 1, 2) = (1, 0, 1) + (0, 1, 1).</div>
+<div class="ex"><b>Finding k</b>(1, 0, 1), (0, 1, 1), (1, 1, k) have determinant k − 2, so they are dependent only when k = 2.</div>
+<h3>Link to span</h3>
+<p>Two independent vectors span R². Three independent vectors span R³. Independent and spanning together is called a basis.</p>`},
+
+{t:8,title:"Matrices: basics and arithmetic",lead:"A matrix is a rectangular table of numbers. Addition is easy. Multiplication is where most mistakes happen, so slow down there.",body:`
+<h3>Vocabulary</h3>
+<ul>
+<li>An m × n matrix has m rows and n columns. The entry aᵢⱼ is in row i, column j.</li>
+<li>Square: m = n. Diagonal: zeros off the main diagonal. Identity I: 1s on the diagonal, 0 elsewhere. Upper triangular: zeros below the diagonal.</li>
+<li>Trace: the sum of the diagonal entries of a square matrix.</li>
+<li>Transpose Aᵀ: rows become columns.</li>
+</ul>
+<h3>Adding, subtracting, scaling</h3>
+<p>Addition and subtraction need the same size and act entry by entry. Scaling multiplies every entry.</p>
+<div class="ex"><b>Example</b>A = [2 −1; 0 3], B = [1 4; −2 5]. A + B = [3 3; −2 8]. 2A − 3B = [4 −2; 0 6] − [3 12; −6 15] = [1 −14; 6 −9].</div>
+<h3>Multiplication</h3>
+<p>AB is defined only when the columns of A equal the rows of B. An (m × n) times an (n × p) gives an (m × p). Entry (i, j) of AB is row i of A times column j of B (multiply matching entries, then add).</p>
+<div class="ex"><b>Example</b>[1 2; 3 4][5 6; 7 8] = [1·5 + 2·7, 1·6 + 2·8; 3·5 + 4·7, 3·6 + 4·8] = [19 22; 43 50].<br>
+Reverse the order: [5 6; 7 8][1 2; 3 4] = [23 34; 31 46]. Different.</div>
+<h3>Rules to remember</h3>
+<ul>
+<li>AB ≠ BA in general.</li>
+<li>(AB)ᵀ = BᵀAᵀ. The order flips.</li>
+<li>AI = IA = A.</li>
+<li>For A² you multiply A by A. You do not square the entries.</li>
+</ul>
+<h3>3 × 3 and 4 × 4</h3>
+<p>Nothing new happens. A 3 × 3 product has nine row-by-column sums of three terms each. A 4 × 4 product has sixteen sums of four terms. When a question asks for one entry only, compute just that one: row i of the first matrix against column j of the second.</p>
+<div class="trap"><b>Common slip</b>Multiplying entry by entry. That is not matrix multiplication.</div>`},
+
+{t:9,title:"Determinants and cofactors",lead:"The determinant is one number that tells you whether a square matrix is invertible. You can compute it by cofactor expansion, or by row reducing to a triangle.",body:`
+<h3>2 × 2</h3>
+<div class="eq">det [a b; c d] = ad − bc</div>
+<h3>Minors and cofactors</h3>
+<p>The <b>minor</b> Mᵢⱼ is the determinant left after deleting row i and column j. The <b>cofactor</b> is Cᵢⱼ = (−1)ⁱ⁺ʲ Mᵢⱼ. The signs follow a checkerboard:</p>
+<div class="eq">[+ − +; − + −; + − +]</div>
+<h3>Cofactor expansion</h3>
+<p>Pick any row or column and add (entry × its cofactor). Choose the row or column with the most zeros.</p>
+<div class="ex"><b>3 × 3 example</b>A = [2 1 3; 0 4 1; 1 0 2]. Expand along row 1:<br>
+2·(4·2 − 1·0) − 1·(0·2 − 1·1) + 3·(0·0 − 4·1) = 16 + 1 − 12 = 5.</div>
+<h3>4 × 4</h3>
+<p>Same method, but each cofactor is a 3 × 3 determinant, so look for zeros. Block matrices help: if the matrix splits into two diagonal blocks, the determinant is the product of the block determinants.</p>
+<div class="ex"><b>Example</b>[1 2 0 0; 3 4 0 0; 0 0 5 6; 0 0 7 8] has blocks [1 2; 3 4] and [5 6; 7 8]. det = (−2)(−2) = 4.</div>
+<p>An upper or lower triangular matrix has det = product of the diagonal, for any size.</p>
+<h3>Effect of row operations</h3>
+<table class="tbl">
+<tr><td>swap two rows</td><td>det changes sign</td></tr>
+<tr><td>multiply a row by k</td><td>det is multiplied by k</td></tr>
+<tr><td>add a multiple of one row to another</td><td>det unchanged</td></tr>
+</table>
+<h3>Properties</h3>
+<ul>
+<li>det(Aᵀ) = det A, &nbsp; det(AB) = det A · det B</li>
+<li>det(kA) = kⁿ det A for an n × n matrix</li>
+<li>a zero row or column, or two equal rows, gives det = 0</li>
+<li>det(A⁻¹) = 1/det A, &nbsp; det(adj A) = (det A)ⁿ⁻¹</li>
+<li>A is invertible exactly when det A ≠ 0</li>
+</ul>`},
+
+{t:10,title:"Adjoint and inverse",lead:"There are two ways to find an inverse: the adjoint formula (good for 2 × 2 and small 3 × 3) and row reduction (covered in the next lesson).",body:`
+<h3>The formula</h3>
+<p>The cofactor matrix C has entries Cᵢⱼ. The <b>adjoint</b> is its transpose: adj(A) = Cᵀ. Then</p>
+<div class="eq">A⁻¹ = (1 / det A) · adj(A) &nbsp;&nbsp; and &nbsp;&nbsp; A · adj(A) = det(A) · I</div>
+<h3>2 × 2 shortcut</h3>
+<div class="eq">[a b; c d]⁻¹ = (1 / (ad − bc)) · [d −b; −c a]</div>
+<p>Swap the diagonal, negate the other two, divide by the determinant. If ad − bc = 0 there is no inverse.</p>
+<div class="ex"><b>Example</b>[3 1; 5 2] has det 6 − 5 = 1, so its inverse is [2 −1; −5 3].</div>
+<h3>3 × 3 example</h3>
+<p>Take the matrix from the determinant lesson, A = [2 1 3; 0 4 1; 1 0 2], with det A = 5. The nine cofactors give</p>
+<div class="eq">cofactor matrix = [8 1 −4; −2 1 1; −11 −2 8]</div>
+<p>Transpose it:</p>
+<div class="eq">adj(A) = [8 −2 −11; 1 1 −2; −4 1 8], &nbsp; A⁻¹ = (1/5)·adj(A)</div>
+<p>Quick check on the first row: [2 1 3] with the first column (8, 1, −4) gives 16 + 1 − 12 = 5, and with the second column (−2, 1, 1) gives −4 + 1 + 3 = 0. That is the pattern of 5·I.</p>
+<h3>Rules for inverses</h3>
+<ul>
+<li>(AB)⁻¹ = B⁻¹A⁻¹ (order reverses)</li>
+<li>(Aᵀ)⁻¹ = (A⁻¹)ᵀ, &nbsp; (A⁻¹)⁻¹ = A, &nbsp; (kA)⁻¹ = (1/k)A⁻¹</li>
+<li>The inverse of a diagonal matrix inverts each diagonal entry.</li>
+</ul>
+<h3>Solving Ax = b</h3>
+<p>If A is invertible, x = A⁻¹b. For A = [3 1; 5 2] and b = (3, 3): x = [2 −1; −5 3](3, 3) = (3, −6).</p>
+<div class="trap"><b>Common slip</b>Forgetting the transpose when going from the cofactor matrix to the adjoint.</div>`},
+
+{t:11,title:"Row operations, Gauss and Gauss-Jordan",lead:"Row operations are the working tool of the whole subject: solving systems, finding rank, finding inverses.",body:`
+<h3>The three elementary row operations</h3>
+<ol><li>Swap two rows.</li><li>Multiply a row by a nonzero constant.</li><li>Add a multiple of one row to another row.</li></ol>
+<p>Each is reversible, so none changes the solution set of a system.</p>
+<h3>Echelon forms</h3>
+<ul>
+<li><b>Row echelon form (REF):</b> zero rows at the bottom, each leading 1 sits to the right of the leading 1 above it.</li>
+<li><b>Reduced row echelon form (RREF):</b> REF, plus zeros above every leading 1 as well.</li>
+</ul>
+<p><b>Gauss elimination</b> reduces to REF, then solves by back-substitution (last variable first). <b>Gauss-Jordan</b> keeps going to RREF so the answer can be read off directly.</p>
+<div class="ex"><b>Worked system</b>x + y + z = 6, 2x − y + z = 3, x + 2y − z = 2.<br>
+Augmented matrix: [1 1 1 | 6; 2 −1 1 | 3; 1 2 −1 | 2].<br>
+R₂ → R₂ − 2R₁ and R₃ → R₃ − R₁: [1 1 1 | 6; 0 −3 −1 | −9; 0 1 −2 | −4].<br>
+Swap R₂ and R₃, then R₃ → R₃ + 3R₂: [1 1 1 | 6; 0 1 −2 | −4; 0 0 −7 | −21]. This is REF.<br>
+Back-substitute: z = 3, y = −4 + 2·3 = 2, x = 6 − 2 − 3 = 1.<br>
+For Gauss-Jordan, continue: R₃ → −R₃/7, R₂ → R₂ + 2R₃, R₁ → R₁ − R₃, R₁ → R₁ − R₂ to reach [1 0 0 | 1; 0 1 0 | 2; 0 0 1 | 3].</div>
+<h3>Reading the result</h3>
+<ul>
+<li>A row [0 0 0 | c] with c ≠ 0 means no solution.</li>
+<li>Fewer pivots than unknowns (and consistent) means infinitely many solutions, with free variables = unknowns − rank.</li>
+<li>A pivot in every column means a unique solution.</li>
+<li>The <b>rank</b> is the number of nonzero rows in the echelon form.</li>
+</ul>
+<h3>Finding an inverse</h3>
+<p>Row reduce [A | I]. If the left side becomes I, the right side is A⁻¹. If a zero row appears on the left, A has no inverse.</p>
+<div class="ex"><b>Example</b>A = [1 2; 3 7]. [1 2 | 1 0; 3 7 | 0 1] → R₂ − 3R₁ → [1 2 | 1 0; 0 1 | −3 1] → R₁ − 2R₂ → [1 0 | 7 −2; 0 1 | −3 1]. So A⁻¹ = [7 −2; −3 1].</div>
+<p>4 × 4 systems work the same way. They simply need more steps, so keep your work in columns and check by substituting the answer back.</p>`},
+
+{t:12,title:"The Hill cipher: c = Kp and p = K⁻¹c",lead:"A Hill cipher hides a message using matrix multiplication. The key is an invertible matrix K, and arithmetic is done modulo 26.",body:`
+<h3>Turning letters into numbers</h3>
+<p>Use A = 1, B = 2, ..., Y = 25, Z = 0. Split the message into blocks the size of the key (pairs for a 2 × 2 key, triples for a 3 × 3 key). Each block is a column vector p.</p>
+<h3>The two formulas</h3>
+<div class="eq">encrypt: c = Kp (mod 26) &nbsp;&nbsp;&nbsp; decrypt: p = K⁻¹c (mod 26)</div>
+<h3>Which keys work</h3>
+<p>K must be invertible modulo 26, which happens exactly when gcd(det K, 26) = 1. For K = [1 2; 3 4] the determinant is −2, which shares the factor 2 with 26, so it fails.</p>
+<h3>Inverse modulo 26</h3>
+<p>Find the integer inverse d⁻¹ of d = det K modulo 26 (so that d·d⁻¹ ≡ 1), then</p>
+<div class="eq">K⁻¹ ≡ d⁻¹ · adj(K) (mod 26)</div>
+<div class="ex"><b>Full example</b>K = [3 3; 2 5]. det K = 15 − 6 = 9. Since 9·3 = 27 ≡ 1, the inverse of 9 is 3.<br>
+adj(K) = [5 −3; −2 3], so K⁻¹ = 3·[5 −3; −2 3] = [15 −9; −6 9] ≡ [15 17; 20 9] (mod 26).<br>
+Encrypt HELP. Pairs: HE = (8, 5) and LP = (12, 16).<br>
+K(8, 5) = (24 + 15, 16 + 25) = (39, 41) ≡ (13, 15), letters M, O.<br>
+K(12, 16) = (36 + 48, 24 + 80) = (84, 104) ≡ (6, 0), letters F, Z.<br>
+Ciphertext: MOFZ.<br>
+Decrypt (13, 15): K⁻¹(13, 15) = (195 + 255, 260 + 135) = (450, 395) ≡ (8, 5), which is HE again.</div>
+<div class="trap"><b>Common slips</b>Writing Z as 26 and forgetting to reduce; multiplying by Kᵀ or by K⁻¹ when encrypting; using the ordinary inverse (with fractions) instead of the inverse modulo 26.</div>`},
+
+{t:13,title:"Span, combinations and independence together",lead:"Spanning, linear combinations and independence are three views of the same system of equations. This lesson is a checklist for questions that mix them.",body:`
+<h3>Is w in span{u, v}?</h3>
+<p>Solve k₁u + k₂v = w. If there is a solution, w is in the span and the solution gives the combination. If the system is inconsistent, it is not.</p>
+<div class="ex"><b>Example</b>u = (1, 0, 2), v = (0, 1, 1), w = (2, 3, 7). k₁ = 2 from the first entry, k₂ = 3 from the second, and the third: 2·2 + 3·1 = 7 ✓. So w = 2u + 3v.</div>
+<div class="ex"><b>Example (fails)</b>u = (1, 1, 0), v = (0, 1, 1), w = (1, 2, 3). The first entry gives k₁ = 1, the third gives k₂ = 3, but then the second entry is 1 + 3 = 4 ≠ 2. Not in the span.</div>
+<h3>What the span looks like</h3>
+<p>span{(1, 0, 1), (0, 1, 1)} is every vector (a, b, a + b), which is the plane z = x + y. A vector is in this plane exactly when its third entry equals the sum of the first two.</p>
+<h3>Checklist</h3>
+<table class="tbl">
+<tr><th>Question</th><th>Test</th></tr>
+<tr><td>Do 2 vectors span R²?</td><td>ad − bc ≠ 0</td></tr>
+<tr><td>Do 3 vectors span R³?</td><td>3 × 3 determinant ≠ 0</td></tr>
+<tr><td>Are 3 vectors in R³ independent?</td><td>same determinant test</td></tr>
+<tr><td>Do 2 vectors in R³ span a plane?</td><td>they are not parallel</td></tr>
+<tr><td>Does a set span R³ with fewer than 3 vectors?</td><td>never</td></tr>
+</table>
+<p>For a square matrix A, these statements all mean the same thing: det A ≠ 0, A is invertible, Ax = 0 has only the trivial solution, the columns are independent, and the columns span Rⁿ.</p>
+<div class="ex"><b>Example</b>{(1,1,0), (0,1,1), (1,0,1)} has determinant 2, so it is independent and spans R³. {(1,2,3), (2,4,6), (0,1,0)} contains (2,4,6) = 2(1,2,3), so it is dependent and spans only a plane.</div>`},
+
+{t:14,title:"Mixed review notes",lead:"A few facts that did not fit elsewhere but show up often.",body:`
+<h3>Symmetric and skew-symmetric matrices</h3>
+<ul>
+<li>Symmetric: Aᵀ = A. Skew-symmetric: Aᵀ = −A.</li>
+<li>The diagonal of a skew-symmetric matrix is all zeros, because aᵢᵢ = −aᵢᵢ.</li>
+<li>Both kinds form subspaces of Mₙₙ, because (A + B)ᵀ = Aᵀ + Bᵀ and (kA)ᵀ = kAᵀ.</li>
+<li>(A + B)ᵀ = Aᵀ + Bᵀ, but (AB)ᵀ = BᵀAᵀ.</li>
+</ul>
+<h3>The space R∞</h3>
+<p>R∞ is the set of infinite sequences (v₁, v₂, v₃, ...) with term-by-term addition and scaling. Its zero vector is (0, 0, 0, ...). Sequences that are eventually zero form a subspace: if u is zero after N₁ and v after N₂, then u + v is zero after max(N₁, N₂).</p>
+<h3>Intersections</h3>
+<p>The x-axis ∩ y-axis in R² is {(0, 0)}, which is a subspace. The union of the two axes is not.</p>
+<h3>Building a typed test of a family</h3>
+<p>Write a general member, add two of them, scale one, and compare the result with the defining condition. If anything fails, show it with one numerical counterexample.</p>`}
+];
+
+// ---------- APP ----------
 const app=document.getElementById("app");
-const $=(s,r)=> (r||document).querySelector(s);
+const $=(s,r)=>(r||document).querySelector(s);
+const $$=(s,r)=>Array.from((r||document).querySelectorAll(s));
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
 const L="ABCD";
-let S={mode:null};
-let timerId=null;
+const isop=x=>x==="+"||x==="−"||x==="-";
+function tok(s){
+  const t=s.split(/\s+/).filter(Boolean),o=[];
+  for(let i=0;i<t.length;i++){
+    if(isop(t[i])&&o.length&&!isop(o[o.length-1])&&i+1<t.length&&!isop(t[i+1])){o[o.length-1]+=" "+t[i]+" "+t[i+1];i++}
+    else o.push(t[i]);
+  }
+  return o;
+}
+// turns "[1 2; 3 4]" and "[1 2 | 3; 4 5 | 6]" into drawn matrices
+function rich(s){
+  return s.replace(/\[([^\[\]]*;[^\[\]]*)\]/g,(m,body)=>{
+    const rows=body.split(";").map(r=>r.trim()).filter(Boolean).map(r=>{
+      const p=r.split("|"),left=tok(p[0]),right=p.length>1?tok(p.slice(1).join(" ")):[];
+      return {cells:left.concat(right),aug:p.length>1?left.length:-1};
+    });
+    const cols=Math.max.apply(null,rows.map(r=>r.cells.length));
+    let h='<span class="mx" style="--c:'+cols+'">';
+    rows.forEach(r=>{for(let c=0;c<cols;c++){h+='<i'+((r.aug>=0&&c===r.aug)?' class="a"':'')+'>'+(r.cells[c]!==undefined?r.cells[c]:"")+'</i>'}});
+    return h+"</span>";
+  });
+}
+const R=s=>rich(esc(s));
 
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let prog=store.get("laTrainer.v2",null)||{};
+prog.topics=prog.topics||{};prog.tests=prog.tests||[];prog.read=prog.read||{};
+const saveProg=()=>store.set("laTrainer.v2",prog);
+function rec(t,ok){const o=prog.topics[t]||(prog.topics[t]={r:0,n:0});o.n++;if(ok)o.r++;saveProg()}
+
+let S={mode:null},timerId=null;
+function stopTimer(){if(timerId){clearInterval(timerId);timerId=null}}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function pool(t){return t==="all"?Q:Q.filter(x=>x.topic===+t)}
-function topicOptions(sel){return `<option value="all">All topics (${Q.length} questions)</option>`+TOPICS.map((n,i)=>`<option value="${i}" ${String(sel)===String(i)?"selected":""}>${esc(n)} (${Q.filter(x=>x.topic===i).length})</option>`).join("")}
-function fmt(sec){sec=Math.max(0,sec);const m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")}
-function stopTimer(){if(timerId){clearInterval(timerId);timerId=null}}
+function topicOptions(sel){return '<option value="all">All topics ('+Q.length+' questions)</option>'+TOPICS.map((n,i)=>'<option value="'+i+'" '+(String(sel)===String(i)?"selected":"")+'>'+esc(n)+' ('+Q.filter(x=>x.topic===i).length+')</option>').join("")}
+function fmt(sec){sec=Math.max(0,sec);return String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")}
+function setNav(r){$$("#nav button").forEach(b=>b.classList.toggle("on",b.dataset.r===r))}
+function go(r){
+  if(S.mode==="test"&&!confirm("Leave the test? Your progress will be lost."))return;
+  stopTimer();
+  if(r==="home")home();else if(r==="learn")learn();else if(r==="practice")practiceSetup();else if(r==="test")testSetup();
+}
+$$("#nav button").forEach(b=>b.onclick=()=>go(b.dataset.r));
+$("#brand").onclick=()=>go("home");
 
 // ---------- HOME ----------
 function home(){
-  stopTimer();S={mode:null};
+  stopTimer();S={mode:null};setNav("home");
   app.innerHTML=`
-  <h1>Linear Algebra MCQ Trainer</h1>
-  <p class="sub">${Q.length} questions across ${TOPICS.length} topics: vectors, vector spaces, subspaces, linear combinations and spanning sets.</p>
-  <div class="grid">
-    <button class="card bigbtn" id="bp"><b>📘 Practice</b><span>Instant feedback, unlimited hints, topic shown on every question.</span></button>
-    <button class="card bigbtn" id="bt"><b>📝 Test</b><span>Timed or untimed. Only 5% of questions get a hint.</span></button>
+  <div class="hero"><h1>Linear Algebra Trainer</h1>
+    <p>${Q.length} multiple-choice questions and ${LESSONS.length} short lessons for a first course: vectors, subspaces, matrices, determinants, inverses, row reduction and the Hill cipher.</p>
+    <div class="by">Created by <b>Muhammad Qasim Ashfaq</b></div></div>
+  <div class="paths">
+    <button class="path" data-go="learn"><b>Learn</b><span>${LESSONS.length} lessons with worked examples, one for every topic below.</span></button>
+    <button class="path" data-go="practice"><b>Practice</b><span>One question at a time with instant feedback. A hint is always one click away.</span></button>
+    <button class="path" data-go="test"><b>Test</b><span>Timed or untimed. Only 5% of the questions offer a hint. You get a score for each topic.</span></button>
   </div>
   <div class="card"><h2>Topics</h2>
-    <table>${TOPICS.map((n,i)=>`<tr><td>${esc(n)}</td><td class="small">${Q.filter(x=>x.topic===i).length} questions</td></tr>`).join("")}</table>
-  </div>`;
-  $("#bp").onclick=practiceSetup;$("#bt").onclick=testSetup;
+    <table class="tlist">${TOPICS.map((n,i)=>{const p=prog.topics[i];return `<tr><td class="num">${i+1}</td><td>${esc(n)}<div class="acc">${Q.filter(x=>x.topic===i).length} questions${p&&p.n?` · ${p.r} of ${p.n} correct so far`:""}</div></td>
+      <td class="go"><button class="btn sm" data-l="${i}">Read</button> <button class="btn sm" data-p="${i}">Practice</button></td></tr>`}).join("")}</table></div>`;
+  $$(".path").forEach(b=>b.onclick=()=>go(b.dataset.go));
+  $$("[data-l]").forEach(b=>b.onclick=()=>learn(+b.dataset.l));
+  $$("[data-p]").forEach(b=>b.onclick=()=>practiceSetup(b.dataset.p));
+  window.scrollTo(0,0);
+}
+
+// ---------- LEARN ----------
+function learn(i){
+  stopTimer();S={mode:null};setNav("learn");
+  if(i==null)i=prog.last||0;
+  const les=LESSONS[i],nq=Q.filter(x=>x.topic===i).length;
+  prog.read[i]=1;prog.last=i;saveProg();
+  app.innerHTML=`<div class="learn">
+    <nav class="side">${LESSONS.map((l,k)=>`<button data-k="${k}" class="${k===i?"on":""}"><span class="n">${k+1}</span><span>${esc(l.title)}</span>${prog.read[k]&&k!==i?'<span class="dot">✓</span>':""}</button>`).join("")}</nav>
+    <div>
+      <select class="mobsel" id="ms" aria-label="Choose a lesson">${LESSONS.map((l,k)=>`<option value="${k}" ${k===i?"selected":""}>${k+1}. ${esc(l.title)}</option>`).join("")}</select>
+      <article class="lesson">
+        <span class="chip">Lesson ${i+1} of ${LESSONS.length}</span>
+        <h2 style="margin-top:8px">${esc(les.title)}</h2>
+        <p class="lead">${esc(les.lead)}</p>
+        ${rich(les.body)}
+        <div class="lnav">
+          <button class="btn" id="lp" ${i===0?"disabled":""}>← Previous</button>
+          <button class="btn primary" id="lpr">Practice this topic (${nq} questions)</button>
+          <button class="btn" id="ln" ${i===LESSONS.length-1?"disabled":""}>Next →</button>
+        </div>
+      </article></div></div>`;
+  $$(".side button").forEach(b=>b.onclick=()=>learn(+b.dataset.k));
+  $("#ms").onchange=e=>learn(+e.target.value);
+  $("#lp").onclick=()=>learn(i-1);$("#ln").onclick=()=>learn(i+1);
+  $("#lpr").onclick=()=>practiceSetup(i);
+  window.scrollTo(0,0);
 }
 
 // ---------- PRACTICE ----------
-function practiceSetup(){
-  app.innerHTML=`
-  <h1>Practice setup</h1>
+function practiceSetup(pre){
+  stopTimer();S={mode:null};setNav("practice");
+  app.innerHTML=`<div class="narrow"><h1>Practice</h1><p class="sub">Pick a topic and an order. You see the right answer straight after each question.</p>
   <div class="card">
-    <label>Topic</label><select id="pt">${topicOptions("all")}</select>
+    <label for="pt">Topic</label><select id="pt">${topicOptions(pre==null?"all":pre)}</select>
     <label>Order</label>
     <div class="seg" id="po"><button data-v="seq" class="on">In order</button><button data-v="shuf">Shuffled</button></div>
-    <div class="row" style="margin-top:16px"><button id="back">← Back</button><button class="primary" id="go">Start practice</button></div>
-  </div>`;
+    <div class="row" style="margin-top:18px"><button class="btn primary" id="go">Start practice</button></div>
+    <p class="note">Keyboard: A–D or 1–4 to answer, → for next, ← for previous, H for the hint.</p>
+  </div></div>`;
   let order="seq";
-  document.querySelectorAll("#po button").forEach(b=>b.onclick=()=>{order=b.dataset.v;document.querySelectorAll("#po button").forEach(x=>x.classList.toggle("on",x===b))});
-  $("#back").onclick=home;
-  $("#go").onclick=()=>{let list=pool($("#pt").value);if(order==="shuf")list=shuffle(list);
-    S={mode:"practice",list,i:0,ans:{},hint:{},topic:$("#pt").value};renderPractice()};
+  $$("#po button").forEach(b=>b.onclick=()=>{order=b.dataset.v;$$("#po button").forEach(x=>x.classList.toggle("on",x===b))});
+  $("#go").onclick=()=>{let list=pool($("#pt").value);if(order==="shuf")list=shuffle(list);startPractice(list)};
 }
+function startPractice(list){S={mode:"practice",list,i:0,ans:{},hint:{}};renderPractice()}
 function renderPractice(){
   const {list,i,ans,hint}=S,Qn=list[i],a=ans[i];
   const done=Object.keys(ans).length,right=Object.keys(ans).filter(k=>ans[k]===list[k].a).length;
-  app.innerHTML=`
-  <div class="row sp"><button id="exit">← Exit</button><span class="small">Correct ${right}/${done} answered</span></div>
+  app.innerHTML=`<div class="narrow">
+  <div class="row sp"><button class="btn sm" id="exit">← Exit</button><span class="small">${right} correct of ${done} answered</span></div>
   <div class="bar"><i style="width:${(done/list.length)*100}%"></i></div>
   <div class="card">
-    <div class="row sp"><span class="chip">${esc(TOPICS[Qn.topic])}</span><span class="small">Question ${i+1} of ${list.length} (Q#${Qn.id})</span></div>
-    <div class="qtext">${esc(Qn.q)}</div>
-    ${Qn.o.map((t,k)=>{let c="opt";if(a!==undefined){if(k===Qn.a)c+=" right";else if(k===a)c+=" wrong"}return `<button class="${c}" data-k="${k}" ${a!==undefined?"disabled":""}><span class="l">${L[k]}</span><span>${esc(t)}</span></button>`}).join("")}
-    ${hint[i]?`<div class="hint">💡 ${esc(Qn.h)}</div>`:""}
-    ${a!==undefined?`<div class="fb ${a===Qn.a?"ok":"no"}">${a===Qn.a?"Correct!":"Not quite. The correct answer is "+L[Qn.a]+"."}</div>`:""}
-    <div class="row sp" style="margin-top:10px">
-      <button id="hb" ${hint[i]?"disabled":""}>💡 Show hint</button>
-      <div class="row"><button id="pv" ${i===0?"disabled":""}>← Prev</button><button class="primary" id="nx">${i===list.length-1?"Finish":"Next →"}</button></div>
+    <div class="row sp"><span class="chip">${esc(TOPICS[Qn.topic])}</span><span class="small">Question ${i+1} of ${list.length}</span></div>
+    <div class="qtext">${R(Qn.q)}</div>
+    ${Qn.o.map((t,k)=>{let c="opt";if(a!==undefined){if(k===Qn.a)c+=" right";else if(k===a)c+=" wrong"}return `<button class="${c}" data-k="${k}" ${a!==undefined?"disabled":""}><span class="l">${L[k]}</span><span>${R(t)}</span></button>`}).join("")}
+    ${hint[i]?`<div class="hint">Hint: ${R(Qn.h)}</div>`:""}
+    ${a!==undefined?`<div class="fb ${a===Qn.a?"ok":"no"}">${a===Qn.a?"Correct.":"Not quite. The answer is "+L[Qn.a]+"."}</div>`:""}
+    <div class="row sp" style="margin-top:12px">
+      <div class="row"><button class="btn" id="hb" ${hint[i]?"disabled":""}>Show hint</button><button class="btn" id="lr">Read the lesson</button></div>
+      <div class="row"><button class="btn" id="pv" ${i===0?"disabled":""}>← Prev</button><button class="btn primary" id="nx">${i===list.length-1?"Finish":"Next →"}</button></div>
     </div>
-  </div>`;
-  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{S.ans[i]=+b.dataset.k;renderPractice()});
+  </div></div>`;
+  $$(".opt").forEach(b=>b.onclick=()=>{if(S.ans[i]!==undefined)return;S.ans[i]=+b.dataset.k;rec(Qn.topic,S.ans[i]===Qn.a);renderPractice()});
   $("#hb").onclick=()=>{S.hint[i]=true;renderPractice()};
   $("#pv").onclick=()=>{S.i--;renderPractice()};
   $("#nx").onclick=()=>{if(i===list.length-1)practiceDone();else{S.i++;renderPractice()}};
   $("#exit").onclick=home;
+  $("#lr").onclick=()=>learn(Qn.topic);
 }
 function practiceDone(){
-  const {list,ans}=S;const done=Object.keys(ans).length;const right=Object.keys(ans).filter(k=>ans[k]===list[k].a).length;
-  app.innerHTML=`<div class="card" style="text-align:center"><h2>Practice complete</h2>
-  <div class="big">${right} / ${done}</div><p class="sub">answered correctly (${list.length-done} skipped)</p>
-  <div class="row" style="justify-content:center"><button id="again" class="primary">Practice again</button><button id="hm">Home</button></div></div>`;
-  $("#again").onclick=practiceSetup;$("#hm").onclick=home;
+  const {list,ans}=S;S.mode="done";
+  const done=Object.keys(ans).length;
+  const missed=list.filter((x,k)=>ans[k]!==undefined&&ans[k]!==x.a);
+  const right=done-missed.length;
+  app.innerHTML=`<div class="narrow"><div class="card" style="text-align:center"><h2>Practice finished</h2>
+  <div class="big">${right} / ${done}</div><p class="sub">answered correctly${list.length-done?` · ${list.length-done} skipped`:""}</p>
+  <div class="row" style="justify-content:center">
+    ${missed.length?`<button class="btn primary" id="rm">Retry the ${missed.length} I missed</button>`:""}
+    <button class="btn ${missed.length?"":"primary"}" id="again">New practice</button><button class="btn" id="hm">Home</button></div></div></div>`;
+  if(missed.length)$("#rm").onclick=()=>startPractice(shuffle(missed));
+  $("#again").onclick=()=>practiceSetup();$("#hm").onclick=home;
 }
 
 // ---------- TEST ----------
 function testSetup(){
-  app.innerHTML=`
-  <h1>Test setup</h1>
+  stopTimer();S={mode:null};setNav("test");
+  app.innerHTML=`<div class="narrow"><h1>Test</h1><p class="sub">Questions are drawn at random. Nothing is marked until you submit.</p>
   <div class="card">
     <label>Scope</label>
-    <div class="seg" id="sc"><button data-v="all" class="on">Overall (all topics)</button><button data-v="one">Specific topic</button></div>
-    <div id="tpw" style="display:none"><label>Topic</label><select id="tp">${topicOptions(0).replace(/<option value="all">.*?<\/option>/,"")}</select></div>
-    <label>Number of MCQs <span class="small" id="mx"></span></label>
+    <div class="seg" id="sc"><button data-v="all" class="on">All topics</button><button data-v="one">One topic</button></div>
+    <div id="tpw" style="display:none"><label for="tp">Topic</label><select id="tp">${topicOptions(0).replace(/<option value="all">.*?<\/option>/,"")}</select></div>
+    <label for="nq">Number of questions <span class="small" id="mx"></span></label>
     <input type="number" id="nq" min="1" value="20">
     <div class="row" style="margin-top:8px" id="qk"></div>
-    <label>Test mode</label>
-    <div class="seg" id="md"><button data-v="timed" class="on">⏱ Timed</button><button data-v="untimed">Untimed</button></div>
-    <div id="tmw"><label>Time limit (minutes)</label><input type="number" id="tm" min="1" value="20"><div class="note">Default is 1 minute per question. Adjust if you like.</div></div>
+    <label>Mode</label>
+    <div class="seg" id="md"><button data-v="timed" class="on">Timed</button><button data-v="untimed">Untimed</button></div>
+    <div id="tmw"><label for="tm">Time limit (minutes)</label><input type="number" id="tm" min="1" value="20"><div class="note">The default is one minute per question. Change it if you like.</div></div>
     <div class="hint" id="hn"></div>
-    <div class="row" style="margin-top:16px"><button id="back">← Back</button><button class="primary" id="go">Start test</button></div>
-  </div>`;
-  let scope="all",mode="timed",timeTouched=false;
+    <div class="row" style="margin-top:18px"><button class="btn primary" id="go">Start test</button></div>
+  </div></div>`;
+  let scope="all",mode="timed",touched=false;
   const maxN=()=>pool(scope==="all"?"all":$("#tp").value).length;
   function upd(){
-    const m=maxN();$("#mx").textContent="(max "+m+")";
-    let n=Math.min(Math.max(1,parseInt($("#nq").value)||1),m);
-    const hc=Math.floor(n*0.05);
-    $("#hn").innerHTML=hc>0?`💡 ${hc} of your ${n} questions (5%) will have a hint available, chosen at random.`:`💡 With ${n} questions, 5% rounds down to 0, so no hints will be available. Choose 20 or more questions to get 1 hint.`;
-    $("#qk").innerHTML=[10,20,40,m].filter((v,i,a)=>v<=m&&a.indexOf(v)===i).map(v=>`<button data-n="${v}">${v===m?"All ("+m+")":v}</button>`).join("");
-    document.querySelectorAll("#qk button").forEach(b=>b.onclick=()=>{$("#nq").value=b.dataset.n;timeTouched=false;upd()});
-    if(!timeTouched)$("#tm").value=n;
+    const m=maxN(),n=Math.min(Math.max(1,parseInt($("#nq").value)||1),m),hc=Math.floor(n*0.05);
+    $("#mx").textContent="(max "+m+")";
+    $("#hn").textContent=hc>0?hc+" of your "+n+" questions (5%) will have a hint, chosen at random.":"With "+n+" questions, 5% rounds down to 0, so there will be no hints. Choose 20 or more to get at least one.";
+    $("#qk").innerHTML=[10,20,40,m].filter((v,k,a)=>v<=m&&a.indexOf(v)===k).map(v=>`<button class="btn sm" data-n="${v}">${v===m?"All ("+m+")":v}</button>`).join("");
+    $$("#qk button").forEach(b=>b.onclick=()=>{$("#nq").value=b.dataset.n;touched=false;upd()});
+    if(!touched)$("#tm").value=n;
   }
-  document.querySelectorAll("#sc button").forEach(b=>b.onclick=()=>{scope=b.dataset.v;document.querySelectorAll("#sc button").forEach(x=>x.classList.toggle("on",x===b));$("#tpw").style.display=scope==="one"?"block":"none";upd()});
-  document.querySelectorAll("#md button").forEach(b=>b.onclick=()=>{mode=b.dataset.v;document.querySelectorAll("#md button").forEach(x=>x.classList.toggle("on",x===b));$("#tmw").style.display=mode==="timed"?"block":"none"});
-  $("#tp").onchange=()=>{timeTouched=false;upd()};
-  $("#nq").oninput=()=>{timeTouched=false;upd()};
-  $("#tm").oninput=()=>{timeTouched=true};
-  $("#back").onclick=home;
+  $$("#sc button").forEach(b=>b.onclick=()=>{scope=b.dataset.v;$$("#sc button").forEach(x=>x.classList.toggle("on",x===b));$("#tpw").style.display=scope==="one"?"block":"none";upd()});
+  $$("#md button").forEach(b=>b.onclick=()=>{mode=b.dataset.v;$$("#md button").forEach(x=>x.classList.toggle("on",x===b));$("#tmw").style.display=mode==="timed"?"block":"none"});
+  $("#tp").onchange=()=>{touched=false;upd()};
+  $("#nq").oninput=()=>{touched=false;upd()};
+  $("#tm").oninput=()=>{touched=true};
   $("#go").onclick=()=>{
-    const m=maxN();const n=Math.min(Math.max(1,parseInt($("#nq").value)||1),m);
-    const tpc=scope==="all"?"all":$("#tp").value;
-    const list=shuffle(pool(tpc)).slice(0,n);
-    const hc=Math.floor(n*0.05);
-    const hintSet=new Set(shuffle(list.map((_,i)=>i)).slice(0,hc));
-    const mins=Math.max(1,parseInt($("#tm").value)||n);
-    S={mode:"test",list,i:0,ans:{},hintSet,hintUsed:{},timed:mode==="timed",limit:mins*60,left:mins*60,start:Date.now(),cfg:{scope,topic:tpc,n,mode,mins}};
-    renderTest();
-    if(S.timed){timerId=setInterval(()=>{const used=Math.floor((Date.now()-S.start)/1000);S.left=S.limit-used;const t=$("#tm2");if(t){t.textContent=fmt(S.left);t.classList.toggle("low",S.left<=60)}if(S.left<=0)finishTest(true)},500)}
+    const n=Math.min(Math.max(1,parseInt($("#nq").value)||1),maxN());
+    startTest({topic:scope==="all"?"all":$("#tp").value,n,mode,mins:Math.max(1,parseInt($("#tm").value)||n)});
   };
   upd();
 }
+function startTest(cfg){
+  const list=shuffle(pool(cfg.topic)).slice(0,cfg.n),hc=Math.floor(list.length*0.05);
+  const hintSet=new Set(shuffle(list.map((_,i)=>i)).slice(0,hc));
+  S={mode:"test",list,i:0,ans:{},hintSet,hintUsed:{},timed:cfg.mode==="timed",limit:cfg.mins*60,left:cfg.mins*60,start:Date.now(),cfg};
+  stopTimer();renderTest();
+  if(S.timed)timerId=setInterval(tick,500);
+}
+function tick(){
+  S.left=S.limit-Math.floor((Date.now()-S.start)/1000);
+  const t=$("#tm2");if(t){t.textContent=fmt(S.left);t.classList.toggle("low",S.left<=60)}
+  if(S.left<=0)finishTest(true);
+}
 function renderTest(){
-  const {list,i,ans,hintSet,hintUsed}=S,Qn=list[i],a=ans[i];
-  const answered=Object.keys(ans).length;
-  const hasHint=hintSet.has(i);
-  app.innerHTML=`
-  <div class="row sp"><span class="small">Answered ${answered}/${list.length}</span>${S.timed?`<span class="timer ${S.left<=60?"low":""}" id="tm2">${fmt(S.left)}</span>`:`<span class="small">Untimed</span>`}</div>
+  const {list,i,ans,hintSet,hintUsed}=S,Qn=list[i],a=ans[i],answered=Object.keys(ans).length,hasHint=hintSet.has(i);
+  app.innerHTML=`<div class="narrow">
+  <div class="row sp"><span class="small">Answered ${answered} of ${list.length}</span>${S.timed?`<span class="timer ${S.left<=60?"low":""}" id="tm2">${fmt(S.left)}</span>`:`<span class="small">Untimed</span>`}</div>
   <div class="bar"><i style="width:${(answered/list.length)*100}%"></i></div>
   <div class="card">
     <div class="row sp"><span class="chip">${esc(TOPICS[Qn.topic])}</span><span class="small">Question ${i+1} of ${list.length}</span></div>
-    <div class="qtext">${esc(Qn.q)}</div>
-    ${Qn.o.map((t,k)=>`<button class="opt ${a===k?"sel":""}" data-k="${k}"><span class="l">${L[k]}</span><span>${esc(t)}</span></button>`).join("")}
-    ${hintUsed[i]?`<div class="hint">💡 ${esc(Qn.h)}</div>`:""}
-    <div class="row sp" style="margin-top:10px">
-      ${hasHint?`<button id="hb" ${hintUsed[i]?"disabled":""}>💡 Use hint</button>`:`<span class="small">No hint for this question</span>`}
-      <div class="row"><button id="pv" ${i===0?"disabled":""}>← Prev</button><button id="nx" ${i===list.length-1?"disabled":""}>Next →</button></div>
+    <div class="qtext">${R(Qn.q)}</div>
+    ${Qn.o.map((t,k)=>`<button class="opt ${a===k?"sel":""}" data-k="${k}"><span class="l">${L[k]}</span><span>${R(t)}</span></button>`).join("")}
+    ${hintUsed[i]?`<div class="hint">Hint: ${R(Qn.h)}</div>`:""}
+    <div class="row sp" style="margin-top:12px">
+      ${hasHint?`<button class="btn" id="hb" ${hintUsed[i]?"disabled":""}>Use hint</button>`:`<span class="small">No hint for this question</span>`}
+      <div class="row">${a!==undefined?`<button class="btn" id="clr">Clear answer</button>`:""}<button class="btn" id="pv" ${i===0?"disabled":""}>← Prev</button><button class="btn" id="nx" ${i===list.length-1?"disabled":""}>Next →</button></div>
     </div>
-    ${a!==undefined?`<div class="row" style="margin-top:8px"><button id="clr" class="small">Clear answer</button></div>`:""}
   </div>
-  <div class="card"><div class="row sp"><b>Questions</b><span class="small">💡 = hint available</span></div>
-    <div class="pal">${list.map((_,k)=>`<button data-j="${k}" class="${ans[k]!==undefined?"ans":""} ${k===i?"cur":""} ${hintSet.has(k)?"hh":""}">${k+1}</button>`).join("")}</div>
-  </div>
-  <div class="row" style="justify-content:space-between"><button id="quit">Quit test</button><button class="primary" id="sub">Submit test</button></div>`;
-  document.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{S.ans[i]=+b.dataset.k;renderTest()});
+  <div class="card"><div class="row sp"><b>Questions</b><span class="small">Orange dot = hint available</span></div>
+    <div class="pal">${list.map((_,k)=>`<button data-j="${k}" class="${ans[k]!==undefined?"ans":""} ${k===i?"cur":""} ${hintSet.has(k)?"hh":""}">${k+1}</button>`).join("")}</div></div>
+  <div class="row sp"><button class="btn" id="quit">Quit test</button><button class="btn primary" id="sub">Submit test</button></div></div>`;
+  $$(".opt").forEach(b=>b.onclick=()=>{S.ans[i]=+b.dataset.k;renderTest()});
   if(hasHint)$("#hb").onclick=()=>{S.hintUsed[i]=true;renderTest()};
   $("#pv").onclick=()=>{S.i--;renderTest()};
   $("#nx").onclick=()=>{S.i++;renderTest()};
   if($("#clr"))$("#clr").onclick=()=>{delete S.ans[i];renderTest()};
-  document.querySelectorAll(".pal button").forEach(b=>b.onclick=()=>{S.i=+b.dataset.j;renderTest()});
+  $$(".pal button").forEach(b=>b.onclick=()=>{S.i=+b.dataset.j;renderTest()});
   $("#quit").onclick=()=>{if(confirm("Quit the test? Your progress will be lost.")){stopTimer();home()}};
   $("#sub").onclick=()=>{const un=S.list.length-Object.keys(S.ans).length;if(confirm(un?`You have ${un} unanswered question(s). Submit anyway?`:"Submit your test?"))finishTest(false)};
 }
 function finishTest(auto){
+  if(S.mode!=="test")return;
   stopTimer();
   const {list,ans,cfg}=S;
   const elapsed=Math.min(Math.floor((Date.now()-S.start)/1000),S.timed?S.limit:1e9);
   let right=0;const byT={};
-  list.forEach((x,i)=>{const ok=ans[i]===x.a;if(ok)right++;byT[x.topic]=byT[x.topic]||{r:0,n:0};byT[x.topic].n++;if(ok)byT[x.topic].r++});
-  const pct=Math.round(right/list.length*100);
-  const hu=Object.keys(S.hintUsed).length;
-  S.result={right,pct};
-  app.innerHTML=`
-  <div class="card" style="text-align:center"><h2>${auto?"Time's up! ":""}Test results</h2>
-    <div class="big">${right} / ${list.length}</div><p class="sub">${pct}% · time ${fmt(elapsed)} · hints used ${hu} of ${S.hintSet.size}</p>
-    <div class="row" style="justify-content:center"><button class="primary" id="rt">Retake (same settings)</button><button id="nt">New test</button><button id="hm">Home</button></div>
-  </div>
-  <div class="card"><h2>By topic</h2><table><tr><th>Topic</th><th>Score</th></tr>
-  ${Object.keys(byT).map(t=>`<tr><td>${esc(TOPICS[t])}</td><td>${byT[t].r}/${byT[t].n} (${Math.round(byT[t].r/byT[t].n*100)}%)</td></tr>`).join("")}</table></div>
-  <div class="card"><div class="row sp"><h2 style="margin:0">Review</h2><div class="seg" id="rf" style="max-width:220px"><button data-v="all" class="on">All</button><button data-v="wrong">Wrong/skipped</button></div></div><div id="rv"></div></div>`;
+  list.forEach((x,i)=>{const ok=ans[i]===x.a;if(ok)right++;const o=byT[x.topic]||(byT[x.topic]={r:0,n:0});o.n++;if(ok)o.r++});
+  const pct=Math.round(right/list.length*100),hu=Object.keys(S.hintUsed).length,prev=prog.tests.length?prog.tests[prog.tests.length-1]:null;
+  prog.tests.push({pct,n:list.length,d:Date.now()});prog.tests=prog.tests.slice(-20);saveProg();
+  S.mode="done";
+  const weak=Object.keys(byT).filter(t=>byT[t].r/byT[t].n<0.7);
+  app.innerHTML=`<div class="narrow">
+  <div class="card" style="text-align:center"><h2>${auto?"Time is up. ":""}Test results</h2>
+    <div class="big">${right} / ${list.length}</div>
+    <p class="sub">${pct}% · time ${fmt(elapsed)} · hints used ${hu} of ${S.hintSet.size}${prev?` · previous test ${prev.pct}%`:""}</p>
+    <div class="row" style="justify-content:center"><button class="btn primary" id="rt">Retake with the same settings</button><button class="btn" id="nt">New test</button><button class="btn" id="hm">Home</button></div></div>
+  <div class="card"><h2>By topic</h2><table class="tbl"><tr><th>Topic</th><th>Score</th></tr>
+  ${Object.keys(byT).map(t=>`<tr><td>${esc(TOPICS[t])}</td><td>${byT[t].r}/${byT[t].n} (${Math.round(byT[t].r/byT[t].n*100)}%)</td></tr>`).join("")}</table>
+  ${weak.length?`<p class="note" style="margin-top:12px">Worth another look:</p><div class="row" style="margin-top:6px">${weak.map(t=>`<button class="btn sm" data-w="${t}">${esc(TOPICS[t])}</button>`).join("")}</div>`:""}</div>
+  <div class="card"><div class="row sp"><h2 style="margin:0">Review</h2><div class="seg" id="rf" style="max-width:240px"><button data-v="all" class="on">All</button><button data-v="wrong">Wrong or skipped</button></div></div><div id="rv"></div></div></div>`;
   function rev(f){
     $("#rv").innerHTML=list.map((x,i)=>{const a=ans[i],ok=a===x.a;if(f==="wrong"&&ok)return"";
-      return `<div class="rev ${ok?"ok":"no"}"><div class="small">Q${i+1} · ${esc(TOPICS[x.topic])} · Q#${x.id}</div>
-      <div style="margin:4px 0">${esc(x.q)}</div>
-      <div>Your answer: <b>${a===undefined?"skipped":L[a]+". "+esc(x.o[a])}</b></div>
-      ${ok?"":`<div>Correct answer: <b>${L[x.a]}. ${esc(x.o[x.a])}</b></div>`}
-      <div class="small">💡 ${esc(x.h)}</div></div>`}).join("")||"<p class='sub'>Nothing to show.</p>";
+      return `<div class="rev ${ok?"ok":"no"}"><div class="small">Q${i+1} · ${esc(TOPICS[x.topic])}</div>
+      <div style="margin:4px 0">${R(x.q)}</div>
+      <div>Your answer: <b>${a===undefined?"skipped":L[a]+". "+R(x.o[a])}</b></div>
+      ${ok?"":`<div>Correct answer: <b>${L[x.a]}. ${R(x.o[x.a])}</b></div>`}
+      <div class="small">Hint: ${R(x.h)}</div></div>`}).join("")||"<p class='sub'>Nothing to show.</p>";
   }
   rev("all");
-  document.querySelectorAll("#rf button").forEach(b=>b.onclick=()=>{document.querySelectorAll("#rf button").forEach(x=>x.classList.toggle("on",x===b));rev(b.dataset.v)});
-  $("#hm").onclick=home;$("#nt").onclick=testSetup;
-  $("#rt").onclick=()=>{
-    const n=cfg.n,list2=shuffle(pool(cfg.topic)).slice(0,n),hc=Math.floor(n*0.05);
-    const hs=new Set(shuffle(list2.map((_,i)=>i)).slice(0,hc));
-    S={mode:"test",list:list2,i:0,ans:{},hintSet:hs,hintUsed:{},timed:cfg.mode==="timed",limit:cfg.mins*60,left:cfg.mins*60,start:Date.now(),cfg};
-    renderTest();
-    if(S.timed){timerId=setInterval(()=>{const used=Math.floor((Date.now()-S.start)/1000);S.left=S.limit-used;const t=$("#tm2");if(t){t.textContent=fmt(S.left);t.classList.toggle("low",S.left<=60)}if(S.left<=0)finishTest(true)},500)}
-  };
+  $$("#rf button").forEach(b=>b.onclick=()=>{$$("#rf button").forEach(x=>x.classList.toggle("on",x===b));rev(b.dataset.v)});
+  $$("[data-w]").forEach(b=>b.onclick=()=>learn(+b.dataset.w));
+  $("#hm").onclick=home;$("#nt").onclick=testSetup;$("#rt").onclick=()=>startTest(cfg);
+  window.scrollTo(0,0);
 }
+
+// ---------- KEYBOARD ----------
+document.addEventListener("keydown",e=>{
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  const tg=e.target.tagName;if(tg==="INPUT"||tg==="SELECT"||tg==="TEXTAREA")return;
+  if(S.mode!=="practice"&&S.mode!=="test")return;
+  const k=e.key.toLowerCase();
+  let idx="abcd".indexOf(k);if(idx<0)idx="1234".indexOf(k);
+  if(k.length===1&&idx>=0){const b=$$(".opt")[idx];if(b&&!b.disabled)b.click();return}
+  const press=id=>{const b=$(id);if(b&&!b.disabled)b.click()};
+  if(e.key==="ArrowRight"||k==="n")press("#nx");
+  else if(e.key==="ArrowLeft"||k==="p")press("#pv");
+  else if(k==="h")press("#hb");
+});
+
 home();
 </script>
 </body>
